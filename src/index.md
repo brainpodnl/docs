@@ -1,7 +1,7 @@
 ---
 id: index
+hide_menu: false
 ---
-
-# Simple Wiki
+# Brainpod docs
 
 Create markdown files to add pages.

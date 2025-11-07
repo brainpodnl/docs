@@ -5,7 +5,7 @@ const site = lume({
   src: "./src",
   dest: "./_site",
 });
-site.use(wiki());
 
+site.use(wiki());
 
 export default site;
