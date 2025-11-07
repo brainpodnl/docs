@@ -1,0 +1,19 @@
+inputs:
+  steiger:
+    url: github:brainhivenl/steiger
+  brainhive:
+    url: github:brainhivenl/pkgs
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+  nixpkgs:
+    url: github:cachix/devenv-nixpkgs/rolling
+  nixpkgs-unstable:
+    url: github:nixos/nixpkgs/nixpkgs-unstable
+  rust-overlay:
+    url: github:oxalica/rust-overlay
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
+imports:
+- brainhive/devenv/base
