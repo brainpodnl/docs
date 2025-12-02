@@ -1,5 +1,5 @@
 ---
-order: 2
+order: 0
 hide_menu: false
 ---
 # Brainpod Concepts
@@ -22,8 +22,8 @@ You work at a much higher level than traditional cloud providers. Instead of con
 
 Currently, we support two resource types:
 
-- **Apps**; Your containerized applications
-- **Routes**; HTTP/HTTPS routing to your apps
+- **[Apps](resources/apps.md)** — Your containerized applications
+- **[Routes](resources/routes.md)** — HTTP/HTTPS routing to your apps
 
 Learn more in the [Resources documentation](resources.md).
 
@@ -64,4 +64,4 @@ Ready to work with specific resource types and start building?
 - [Resources](resources.md) – Learn about Apps and Routes in detail
 - [Getting Started](getting-started.md) – Deploy your first application
 - [Working with the Dashboard](dashboard.md) – Navigate the interface
-- [Cloud-Native Concepts](cloud-native-concepts.md) – Review the foundation
+- [background information](background-information.md) – Review the foundation
