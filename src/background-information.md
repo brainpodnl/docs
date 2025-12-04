@@ -1,8 +1,8 @@
 ---
-order: 1
+order: 5
 hide_menu: false
 ---
-# Cloud-Native Concepts
+# Background information
 
 Before diving into Brainpod, it helps to understand the cloud-native principles that power the platform. Don't worry if you're new to these concepts, we'll explain everything in plain language.
 
