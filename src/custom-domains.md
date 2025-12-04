@@ -1,5 +1,5 @@
 ---
-order: 5
+order: 4
 hide_menu: false
 ---
 # Custom domains
@@ -40,7 +40,3 @@ A single route can have multiple custom domains. This is useful when you want se
 To add multiple domains, simply add each domain when creating or editing your route configuration. After deploying, configure DNS records for each domain separately in your DNS provider.
 
 Each domain gets its own TLS certificate and verification status on the Domains page. All domains on a route use the same routing rules and point to the same apps.
-
-## Next Steps
-- [Resources](resources.md) — Learn about apps and routes
-- [Getting Started](getting-started.md) — Deploy your first application

@@ -1,8 +1,8 @@
 ---
-order: 1
+order: 5
 hide_menu: false
 ---
-# Cloud-Native Concepts
+# Background information
 
 Before diving into Brainpod, it helps to understand the cloud-native principles that power the platform. Don't worry if you're new to these concepts, we'll explain everything in plain language.
 
@@ -45,7 +45,3 @@ The beauty of Brainpod is that you get all the benefits of Kubernetes without ne
 ## Cloud-Native with Brainpod
 
 Brainpod embraces cloud-native principles while keeping things simple. You build with containers, packaging your application once and running it anywhere. We ensure your app stays running so you can deploy with confidence, while automatic scaling handles traffic spikes without manual intervention. Your data stays in Europe, giving you the benefits of Dutch data sovereignty and GDPR compliance. Most importantly, we handle all the infrastructure complexity so you can focus on writing code instead of managing servers.
-
-## Next Steps
-
-- [Brainpod Concepts](brainpod.md) – Brainpod Concepts

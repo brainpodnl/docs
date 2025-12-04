@@ -1,5 +1,5 @@
 ---
-order: 4
+order: 3
 hide_menu: false
 ---
 # Container Registry
@@ -95,6 +95,5 @@ The registry works with any tool that supports Docker registries—GitHub Action
 
 Ready to push your first image?
 
-- [API Keys](/api-keys.md) – Generate and manage API keys
 - [Getting Started](/getting-started.md) – Deploy an app using a registry image
 - [Resources](/resources.md) – Learn about Apps and Routes

@@ -1,61 +1,19 @@
 ---
-order: 3
+order: 2
 hide_menu: false
 ---
-# Resources
+# Brainpod Resources
 
 Resources are the building blocks of your infrastructure on Brainpod. Currently, we support two resource types: Apps and Routes. Together, they let you deploy containerized applications and make them accessible on the internet.
 
-## Apps
+## Overview
 
-An app is a containerized application running on Brainpod. It's the core resource—your actual code, packaged as a container and running with the configuration you specify.
+- **[Apps](resources/apps.md)** — Your containerized applications
+- **[Routes](resources/routes.md)** — HTTP/HTTPS routing to your apps
 
-### How Apps Work
+**Apps** are containerized applications running on Brainpod. They're your actual code, packaged as containers and running with the configuration you specify. We handle orchestration—scheduling containers, monitoring health, restarting failures, and scaling based on your configuration.
 
-When you create an app, you're telling us what to run and how to run it. We handle the orchestration—scheduling containers, monitoring health, restarting failures, and scaling based on your configuration.
-
-Each app runs one or more instances of your container. If an instance fails, we automatically restart it. If you scale up, we add more instances and balance traffic across them. The container image you specify gets pulled and deployed according to your settings.
-
-### Configuring an App
-
-Apps need a few key pieces of information:
-
-- **Name**;  A unique identifier within your pod. Use descriptive names like `web`, `api`, or `worker`.
-- **Instance Type**; Determines CPU and memory for your containers. Choose based on your workload—small for lightweight services, larger for compute-intensive applications.
-- **Image**; Your container image, either from a public registry (like `nginx:latest`) or our private registry at `registry.brainpod.io`. The private registry is pod-scoped, keeping your images secure.
-- **Environment Variables**; Configuration passed to your container at runtime. Use these for database URLs, API keys, feature flags, or anything your application reads from the environment.
-
-### What Happens When You Deploy
-
-When you deploy an app revision, we pull your container image, inject environment variables, and start your instances. Health checks monitor your app, and if something fails, we automatically restart it. Traffic routing happens through routes (covered below).
-
-Apps are designed to be stateless. For persistent data, you'll eventually be able to use storage resources. For now, connect to external databases or storage services via environment variables.
-
-## Routes
-
-A route makes your app accessible on the internet. Without a route, your app runs but has no external connectivity. With a route, you get a hostname, traffic routing, and automatic TLS.
-
-### How Routes Work
-
-Routes sit in front of your apps, handling incoming HTTP/HTTPS traffic. They terminate TLS, apply routing rules, and forward requests to the appropriate app. Think of a route as your load balancer and reverse proxy combined.
-
-Every route needs at least one routing rule. The most common pattern is routing all traffic (`/` prefix) to a single app. You can also split traffic by path—send `/api` to your API app, `/admin` to your admin app, and everything else to your frontend.
-
-### Hostnames and Domains
-
-When you create a route, you get a unique hostname under `*.prod.brainpod.io`. This is immediately available (no DNS configuration, no waiting). The hostname is yours as long as the route exists.
-
-Want to use your own domain? Add a custom domain to your route. Point your DNS records to us, and we handle the rest. Custom domains work exactly like the default hostnames, with the same automatic TLS and routing capabilities.
-
-### Automatic TLS
-
-Every route comes with automatic TLS certificates. We provision certificates when you create the route, renew them before expiry, and handle all the complexity. This works for both `*.prod.brainpod.io` hostnames and your custom domains.
-
-Your traffic is always encrypted. No manual certificate management, no worrying about expiration. HTTPS just works.
-
-### Multiple Routes
-
-You can create multiple routes for different purposes. One route for your production domain, another for staging. A route for your main application, separate routes for different services. Each route can point to different apps or use different routing rules.
+**Routes** make your apps accessible on the internet. They handle incoming HTTP/HTTPS traffic, terminate TLS, apply routing rules, and forward requests to the appropriate app. Think of routes as your load balancer and reverse proxy combined.
 
 ## Working with Resources
 
@@ -77,7 +35,7 @@ Routes can point to multiple apps using different path prefixes. Apps can be tar
 
 Ready to deploy your first application?
 
-- [Getting Started](getting-started.md) – Deploy your first app and route
-- [Working with the Dashboard](dashboard.md) – Manage resources in the UI
-- [Container Registry](registry.md) – Push private images
-- [Brainpod Concepts](brainpod.md) – Review core concepts
+- [Getting Started](getting-started.md) — Deploy your first app and route
+- [Apps](apps.md) — Deploy containerized applications
+- [Routes](routes.md) — Expose apps on the internet
+- [Container Registry](registry.md) — Push private images
