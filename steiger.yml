@@ -1,0 +1,4 @@
+build:
+  app:
+    type: docker
+    context: .
