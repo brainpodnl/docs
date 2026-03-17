@@ -1,7 +1,11 @@
-FROM php:8.2-cli
+FROM denoland/deno:latest AS builder
 
-COPY . /usr/src/app
+WORKDIR /app
 
-WORKDIR /usr/src/app
+COPY . .
 
-CMD [ "php", "main.php" ]
+RUN deno task build
+
+FROM joseluisq/static-web-server:2-debian
+
+COPY --from=builder /app/_site ./public
