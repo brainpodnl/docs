@@ -1,0 +1,32 @@
+name: Deploy to Brainpod
+
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: brainpod-grapes-cross
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Login to Brainpod registry
+        uses: docker/login-action@v3
+        with:
+          registry: registry.brainpod.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.BRAINPOD_API_KEY }}
+
+      - name: Build and push
+        uses: brainhivenl/steiger-action@v2
+        env:
+          BUILD_EVENTS_ENDPOINT: https://api.prod.brainpod.io
+          BUILD_EVENTS_TOKEN: ${{ secrets.BRAINPOD_POD_NAME }}:${{ secrets.BRAINPOD_API_KEY }}
+          BUILD_EVENTS_TARGET: urn:brainpod:pod:${{ secrets.BRAINPOD_POD_ID }}
+        with:
+          cmd: build
+          args: --repo=registry.brainpod.io/grapes-cross
