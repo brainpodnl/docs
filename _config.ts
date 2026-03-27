@@ -1,5 +1,6 @@
 import lume from "lume/mod.ts";
 import wiki from "wiki/mod.ts";
+import tailwindcss from "lume/plugins/tailwindcss.ts";
 
 const site = lume({
   src: "./src",
@@ -7,5 +8,6 @@ const site = lume({
 });
 
 site.use(wiki());
+site.use(tailwindcss());
 
 export default site;
