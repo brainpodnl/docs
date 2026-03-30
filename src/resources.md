@@ -1,19 +1,29 @@
 ---
 order: 3
 hide_menu: false
+metas:
+  description: "Overview of Brainpod resources: Apps, Routes, PostgresDB, MariaDB, Valkey, Config, and Disk. Build your cloud infrastructure with high-level abstractions."
+  keywords: ["Brainpod resources", "apps", "routes", "PostgreSQL", "MariaDB", "Valkey", "disk", "config", "infrastructure"]
 ---
 # Brainpod Resources
 
-Resources are the building blocks of your infrastructure on Brainpod. Currently, we support two resource types: Apps and Routes. Together, they let you deploy containerized applications and make them accessible on the internet.
+Resources are the building blocks of your infrastructure on Brainpod. They let you deploy containerized applications, expose them on the internet, connect to managed databases, and persist data.
 
 ## Overview
 
-- **[Apps](resources/apps.md)** — Your containerized applications
-- **[Routes](resources/routes.md)** — HTTP/HTTPS routing to your apps
+- **[Apps](resources/apps.md)**: Your containerized applications
+- **[Routes](resources/routes.md)**: HTTP/HTTPS routing to your apps
+- **[Disks](resources/disks.md)**: Persistent block storage
+- **[Config](resources/config.md)**: Shared configuration and secrets
+- **[PostgresDB](resources/postgres.md)**: Managed PostgreSQL databases
+- **[MariaDB](resources/mariadb.md)**: Managed MariaDB databases
+- **[Valkey](resources/valkey.md)**: Managed Valkey key-value store
 
-**Apps** are containerized applications running on Brainpod. They're your actual code, packaged as containers and running with the configuration you specify. We handle orchestration—scheduling containers, monitoring health, restarting failures, and scaling based on your configuration.
+**Apps** are containerized applications running on Brainpod. They're your actual code, packaged as containers and running with the configuration you specify. We handle orchestration-scheduling containers, monitoring health, restarting failures, and scaling based on your configuration.
 
 **Routes** make your apps accessible on the internet. They handle incoming HTTP/HTTPS traffic, terminate TLS, apply routing rules, and forward requests to the appropriate app. Think of routes as your load balancer and reverse proxy combined.
+
+**Disks** give your apps persistent storage. Without a disk, data written inside an app is lost when it restarts. Mount a disk into an app and the data survives restarts, redeployments, and revisions. Databases like PostgresDB, MariaDB, and Valkey all require a disk to store their data.
 
 ## Working with Resources
 
@@ -35,9 +45,9 @@ Routes can point to multiple apps using different path prefixes. Apps can be tar
 
 Ready to deploy your first application?
 
-- [Apps](apps.md) — Deploy containerized applications
-- [Routes](routes.md) — Expose apps on the internet
-- [Getting Started](getting-started.md) — Deploy your first app and route
-- [Working with the Dashboard](dashboard.md) — Manage resources in the UI
-- [Container Registry](registry.md) — Push private images
-- [Brainpod Concepts](brainpod.md) — Review core concepts
+- [Apps](apps.md): Deploy containerized applications
+- [Routes](routes.md): Expose apps on the internet
+- [Getting Started](getting-started.md): Deploy your first app and route
+- [Working with the Dashboard](dashboard.md): Manage resources in the UI
+- [Container Registry](registry.md): Push private images
+- [Brainpod Concepts](brainpod.md): Review core concepts

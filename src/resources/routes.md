@@ -1,5 +1,8 @@
 ---
 order: 2
+metas:
+  description: "Brainpod Routes expose your apps to the internet with automatic TLS, load balancing, path-based routing, and custom domain support."
+  keywords: ["Brainpod routes", "HTTP routing", "load balancer", "TLS", "custom domain", "reverse proxy", "HTTPS"]
 ---
 # Routes
 
@@ -9,7 +12,7 @@ A route makes your app accessible on the internet. Without a route, your app run
 
 Routes sit in front of your apps, handling incoming HTTP/HTTPS traffic. They terminate TLS, apply routing rules, and forward requests to the appropriate app. Think of a route as your load balancer and reverse proxy combined.
 
-Every route needs at least one routing rule. The most common pattern is routing all traffic (`/` prefix) to a single app. You can also split traffic by path—send `/api` to your API app, `/admin` to your admin app, and everything else to your frontend.
+Every route needs at least one routing rule. The most common pattern is routing all traffic (`/` prefix) to a single app. You can also split traffic by path-send `/api` to your API app, `/admin` to your admin app, and everything else to your frontend.
 
 ## Hostnames and Domains
 
@@ -29,6 +32,6 @@ You can create multiple routes for different purposes. One route for your produc
 
 ## Next Steps
 
-- [Apps](apps.md) — Learn about deploying containerized applications
-- [Getting Started](../getting-started.md) — Deploy your first route
-- [Resources](../resources.md) — Overview of Brainpod resources
+- [Apps](apps.md): Learn about deploying containerized applications
+- [Getting Started](../getting-started.md): Deploy your first route
+- [Resources](../resources.md): Overview of Brainpod resources

@@ -1,6 +1,9 @@
 ---
 id: index
 hide_menu: false
+metas:
+  description: "Brainpod is a European cloud-native application platform for deploying and managing containerized applications. Built on Kubernetes, without the complexity."
+  keywords: ["Brainpod", "cloud platform", "container deployment", "Kubernetes", "Dutch cloud", "European hosting"]
 ---
 # Welcome to Brainpod
 
@@ -14,10 +17,10 @@ Brainpod is a European cloud-native application platform that makes deploying an
 
 **HTTP Routing & Load Balancing**: Expose your applications through intelligent routes that handle traffic distribution and filtering automatically.
 
-**Real-time Observability**: Application logs are captured and displayed in real-time—just write to stdout.
+**Real-time Observability**: Application logs are captured and displayed in real-time-just write to stdout.
 
 **Dutch Infrastructure**: Your applications run on Dutch servers with a Dutch cloud provider. Built by a Dutch company, hosted in the Netherlands, ensuring full compliance with European data sovereignty requirements.
 
 ## Next Steps
 
-- [Cloud-Native Concepts](cloud-native.md) – Review the foundation
+- [Cloud-Native Concepts](cloud-native.md): Review the foundation

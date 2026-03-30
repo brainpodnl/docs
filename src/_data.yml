@@ -1,2 +1,7 @@
 logo: /PRIMARY.png
 menu_links: []
+
+metas:
+  site: Brainpod Docs
+  lang: en
+  robots: "index, follow"
