@@ -1,10 +1,13 @@
 ---
 order: 4
 hide_menu: false
+metas:
+  description: "Push and manage private container images with Brainpod's built-in OCI registry. Authenticate with Docker, push images, and use them directly in your apps."
+  keywords: ["Brainpod container registry", "Docker registry", "private images", "OCI registry", "CI/CD", "push image"]
 ---
 # Container Registry
 
-Every pod comes with its own private container registry. Push your images, and they're immediately available to your apps—no external registries or credentials needed.
+Every pod comes with its own private container registry. Push your images, and they're immediately available to your apps-no external registries or credentials needed.
 
 ## How It Works
 
@@ -89,12 +92,12 @@ Most CI/CD pipelines can integrate with the registry using the same Docker login
 2. Login using `docker login registry.brainpod.io -u api -p $API_KEY`
 3. Build and push your images as part of your pipeline
 
-The registry works with any tool that supports Docker registries—GitHub Actions, GitLab CI, Jenkins, CircleCI, and others.
+The registry works with any tool that supports Docker registries-GitHub Actions, GitLab CI, Jenkins, CircleCI, and others.
 
 ## Next Steps
 
 Ready to push your first image?
 
-- [API Keys](/api-keys.md) – Generate and manage API keys
-- [Getting Started](/getting-started.md) – Deploy an app using a registry image
-- [Resources](/resources.md) – Learn about Apps and Routes
+- [API Keys](/api-keys.md): Generate and manage API keys
+- [Getting Started](/getting-started.md): Deploy an app using a registry image
+- [Resources](/resources.md): Learn about Apps and Routes

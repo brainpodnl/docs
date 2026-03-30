@@ -1,6 +1,9 @@
 ---
 order: 1
 hide_menu: false
+metas:
+  description: "Deploy your first application on Brainpod in minutes. Step-by-step guide to creating an app, exposing it with a route, and going live with automatic HTTPS."
+  keywords: ["Brainpod getting started", "deploy container", "create app", "create route", "quick start", "tutorial"]
 ---
 # Getting Started
 
@@ -72,10 +75,10 @@ If you deployed the nginx example, you'll see the default nginx welcome page.
 
 The workflow you just completed is the core Brainpod deployment pattern:
 
-1. **Create drafts** — Configure your resources without affecting production
-2. **Review changes** — Inspect your configuration before deploying
-3. **Deploy** — Make your changes live
-4. **Roll back** — If something goes wrong, revert to a previous revision
+1. **Create drafts**: Configure your resources without affecting production
+2. **Review changes**: Inspect your configuration before deploying
+3. **Deploy**: Make your changes live
+4. **Roll back**: If something goes wrong, revert to a previous revision
 
 This same workflow applies whether you're deploying your first app or updating a complex multi-service application.
 

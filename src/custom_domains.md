@@ -1,6 +1,9 @@
 ---
 order: 4
 hide_menu: false
+metas:
+  description: "Add custom domains to your Brainpod routes. Configure DNS, get automatic TLS certificates, and serve your apps from any domain you own."
+  keywords: ["Brainpod custom domains", "DNS configuration", "TLS certificate", "HTTPS", "CNAME", "custom hostname"]
 ---
 # Custom domains
 
@@ -35,12 +38,12 @@ CNAME records automatically follow any infrastructure changes on our side, so yo
 
 ## Multiple Custom Domains
 
-A single route can have multiple custom domains. This is useful when you want several domains pointing to the same application—for example, `www.example.com` and `app.example.com`, or multiple brand domains.
+A single route can have multiple custom domains. This is useful when you want several domains pointing to the same application-for example, `www.example.com` and `app.example.com`, or multiple brand domains.
 
 To add multiple domains, simply add each domain when creating or editing your route configuration. After deploying, configure DNS records for each domain separately in your DNS provider.
 
 Each domain gets its own TLS certificate and verification status on the Domains page. All domains on a route use the same routing rules and point to the same apps.
 
 ## Next Steps
-- [Resources](resources.md) — Learn about apps and routes
-- [Getting Started](getting-started.md) — Deploy your first application
+- [Resources](resources.md): Learn about apps and routes
+- [Getting Started](getting-started.md): Deploy your first application

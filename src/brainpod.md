@@ -1,6 +1,9 @@
 ---
 order: 0
 hide_menu: false
+metas:
+  description: "Learn about Brainpod's core concepts: pods, resources, and revisions. A git-like interface for your cloud infrastructure without the Kubernetes complexity."
+  keywords: ["Brainpod concepts", "pods", "resources", "revisions", "infrastructure management", "cloud-native"]
 ---
 # Brainpod Concepts
 
@@ -16,14 +19,14 @@ Pods give you clear boundaries and ownership. Development stays separate from pr
 
 ## Resources
 
-We use a resource model to represent your infrastructure. Each resource is a high-level abstraction—a single resource might map to dozens of underlying components like deployments, services, load balancers, and configurations.
+We use a resource model to represent your infrastructure. Each resource is a high-level abstraction-a single resource might map to dozens of underlying components like deployments, services, load balancers, and configurations.
 
 You work at a much higher level than traditional cloud providers. Instead of configuring individual pieces, you simply define an app and a route. The platform handles the complexity.
 
 Currently, we support two resource types:
 
-- **[Apps](resources/apps.md)** — Your containerized applications
-- **[Routes](resources/routes.md)** — HTTP/HTTPS routing to your apps
+- **[Apps](resources/apps.md)**: Your containerized applications
+- **[Routes](resources/routes.md)**: HTTP/HTTPS routing to your apps
 
 Learn more in the [Resources documentation](resources.md).
 
@@ -61,7 +64,7 @@ Your team sees the complete history, can roll back if needed, and collaborates o
 
 Ready to work with specific resource types and start building?
 
-- [Resources](resources.md) – Learn about Apps and Routes in detail
-- [Getting Started](getting-started.md) – Deploy your first application
-- [Working with the Dashboard](dashboard.md) – Navigate the interface
-- [background information](background-information.md) – Review the foundation
+- [Resources](resources.md): Learn about Apps and Routes in detail
+- [Getting Started](getting-started.md): Deploy your first application
+- [Working with the Dashboard](dashboard.md): Navigate the interface
+- [background information](background-information.md): Review the foundation

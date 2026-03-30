@@ -1,6 +1,9 @@
 ---
 order: 5
 hide_menu: false
+metas:
+  description: "Background on cloud-native principles, containers, and Kubernetes that power Brainpod. Understand the technology behind the platform before you start deploying."
+  keywords: ["cloud-native", "containers", "Kubernetes", "Docker", "container orchestration", "Brainpod background"]
 ---
 # Background information
 
@@ -48,4 +51,4 @@ Brainpod embraces cloud-native principles while keeping things simple. You build
 
 ## Next Steps
 
-- [Brainpod Concepts](brainpod.md) – Brainpod Concepts
+- [Brainpod Concepts](brainpod.md): Brainpod Concepts
