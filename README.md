@@ -44,6 +44,7 @@ src/
 │   ├── wordpress.md          # WordPress blueprint
 │   ├── pocketbase.md         # PocketBase blueprint
 │   └── nextjs.md             # Next.js blueprint
+├── builds.md                 # Builds
 ├── custom_domains.md         # Custom domains
 └── registry.md               # Container registry
 ```
