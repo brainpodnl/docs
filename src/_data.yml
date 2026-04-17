@@ -1,7 +1,10 @@
 logo: /PRIMARY.png
 menu_links: []
+extra_head:
+  - '<meta name="google-site-verification" content="6_eafdhJcRSWQhnrRkgZD9AuoKWzyUGXLTNLXckOAhw" />'
 
 metas:
   site: Brainpod Docs
   lang: en
   robots: "index, follow"
+  title: "=title"

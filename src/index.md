@@ -1,9 +1,11 @@
 ---
 id: index
+title: "Brainpod Docs - European Cloud-Native Application Platform"
 hide_menu: false
 metas:
-  description: "Brainpod is a European cloud-native application platform for deploying and managing containerized applications. Built on Kubernetes, without the complexity."
-  keywords: ["Brainpod", "cloud platform", "container deployment", "Kubernetes", "Dutch cloud", "European hosting"]
+  title: "Brainpod Docs - European Cloud-Native Application Platform"
+  description: "Brainpod documentation. A European cloud-native application platform for deploying and managing containerized applications. Built on Kubernetes, without the complexity."
+  keywords: ["Brainpod", "Brainpod docs", "Brainpod documentation", "cloud platform", "container deployment", "Kubernetes", "Dutch cloud", "European hosting"]
 ---
 # Welcome to Brainpod
 
