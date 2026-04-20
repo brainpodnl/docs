@@ -45,9 +45,8 @@ Routes can point to multiple apps using different path prefixes. Apps can be tar
 
 Ready to deploy your first application?
 
-- [Apps](apps.md): Deploy containerized applications
-- [Routes](routes.md): Expose apps on the internet
+- [Apps](resources/apps.md): Deploy containerized applications
+- [Routes](resources/routes.md): Expose apps on the internet
 - [Getting Started](getting-started.md): Deploy your first app and route
-- [Working with the Dashboard](dashboard.md): Manage resources in the UI
 - [Container Registry](registry.md): Push private images
 - [Brainpod Concepts](brainpod.md): Review core concepts

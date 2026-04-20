@@ -66,5 +66,4 @@ Ready to work with specific resource types and start building?
 
 - [Resources](resources.md): Learn about Apps and Routes in detail
 - [Getting Started](getting-started.md): Deploy your first application
-- [Working with the Dashboard](dashboard.md): Navigate the interface
 - [background information](background-information.md): Review the foundation
