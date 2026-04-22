@@ -1,0 +1,21 @@
+<nav>
+  <ul class="breadcrumb">
+    {{ for item of nav.breadcrumb(url, `lang=${lang} hide_menu!=true`) }}
+      {{ if item.data.url }}
+        <li class="breadcrumb-item">
+          {{ if item.data.url !== url }}
+            <a href="{{ item.data.url }}">{{
+              item.data.nav_title || item.data.title || item.data.basename
+            }}</a>
+          {{ else }}
+            {{ item.data.nav_title || item.data.title || item.data.basename }}
+          {{ /if }}
+        </li>
+      {{ else }}
+        <li class="breadcrumb-item">
+          <strong>{{ item.data.basename }}</strong>
+        </li>
+      {{ /if }}
+    {{ /for }}
+  </ul>
+</nav>

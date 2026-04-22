@@ -54,7 +54,7 @@ In your app's environment variable configuration, you would set it up like this:
 
 ## Next Steps
 
-- [Disks](disks.md): Create a disk for your database to use
 - [Apps](apps.md): Connect your app to a MariaDB
+- [Disks](disks.md): Create a disk for your database to use
 - [PostgresDB](postgres.md): PostgreSQL alternative
 - [Resources](../resources.md): Overview of Brainpod resources

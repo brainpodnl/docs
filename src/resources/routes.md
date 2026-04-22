@@ -32,6 +32,6 @@ You can create multiple routes for different purposes. One route for your produc
 
 ## Next Steps
 
+- [Custom Domains](../custom_domains.md): Use your own domain with your route
 - [Apps](apps.md): Learn about deploying containerized applications
-- [Getting Started](../getting-started.md): Deploy your first route
 - [Resources](../resources.md): Overview of Brainpod resources

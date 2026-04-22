@@ -47,6 +47,6 @@ Ready to deploy your first application?
 
 - [Apps](resources/apps.md): Deploy containerized applications
 - [Routes](resources/routes.md): Expose apps on the internet
-- [Getting Started](getting-started.md): Deploy your first app and route
 - [Container Registry](registry.md): Push private images
+- [Getting Started](getting-started.md): Deploy your first app and route
 - [Brainpod Concepts](brainpod.md): Review core concepts

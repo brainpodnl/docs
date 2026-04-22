@@ -98,6 +98,6 @@ The registry works with any tool that supports Docker registries-GitHub Actions,
 
 Ready to push your first image?
 
-- [API Keys](/api-keys.md): Generate and manage API keys
-- [Getting Started](/getting-started.md): Deploy an app using a registry image
-- [Resources](/resources.md): Learn about Apps and Routes
+- [Apps](resources/apps.md): Use registry images in your apps
+- [Builds](builds.md): Automate image builds from GitHub
+- [Getting Started](getting-started.md): Deploy an app using a registry image

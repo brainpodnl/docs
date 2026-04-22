@@ -1,6 +1,7 @@
 ---
 id: index
 title: "Brainpod Docs - European Cloud-Native Application Platform"
+nav_title: "Brainpod Docs"
 hide_menu: false
 metas:
   title: "Brainpod Docs - European Cloud-Native Application Platform"
@@ -25,4 +26,4 @@ Brainpod is a European cloud-native application platform that makes deploying an
 
 ## Next Steps
 
-- [Cloud-Native Concepts](cloud-native.md): Review the foundation
+- [Getting Started](getting-started.md): Deploy your first application

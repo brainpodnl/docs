@@ -45,5 +45,7 @@ To add multiple domains, simply add each domain when creating or editing your ro
 Each domain gets its own TLS certificate and verification status on the Domains page. All domains on a route use the same routing rules and point to the same apps.
 
 ## Next Steps
+
+- [Routes](resources/routes.md): Learn about route configuration and routing rules
 - [Resources](resources.md): Learn about apps and routes
 - [Getting Started](getting-started.md): Deploy your first application

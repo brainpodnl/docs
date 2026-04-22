@@ -70,6 +70,7 @@ You can add multiple mounts to a single app.
 ## Next Steps
 
 - [Routes](routes.md): Make your app accessible on the internet
-- [Getting Started](../getting-started.md): Deploy your first app
+- [Disks](disks.md): Add persistent storage to your app
+- [Config](config.md): Mount configuration files into your app
 - [Container Registry](../registry.md): Push private images to Brainpod
 - [Resources](../resources.md): Overview of Brainpod resources

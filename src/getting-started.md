@@ -86,10 +86,10 @@ This same workflow applies whether you're deploying your first app or updating a
 
 Now that you have a basic application running, explore these topics:
 
-- [Push your own images](registry.md) to Brainpod's private registry
-- [Configure apps](resources/apps.md) with environment variables and scaling
-- [Set up custom domains](resources/routes.md#hostnames-and-domains) for your routes
 - [Learn about resources](resources.md) and how apps and routes work together
+- [Configure apps](resources/apps.md) with environment variables and scaling
+- [Push your own images](registry.md) to Brainpod's private registry
+- [Set up custom domains](custom_domains.md) for your routes
 
 ## Common Questions
 

@@ -64,6 +64,6 @@ Your team sees the complete history, can roll back if needed, and collaborates o
 
 Ready to work with specific resource types and start building?
 
-- [Resources](resources.md): Learn about Apps and Routes in detail
 - [Getting Started](getting-started.md): Deploy your first application
-- [background information](background-information.md): Review the foundation
+- [Resources](resources.md): Learn about Apps and Routes in detail
+- [Background Information](background-information.md): Review the foundation
