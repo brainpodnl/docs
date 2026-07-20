@@ -64,6 +64,7 @@ Your team sees the complete history, can roll back if needed, and collaborates o
 
 Ready to work with specific resource types and start building?
 
+- [Onboarding](onboarding.md): Complete account and first-pod setup
 - [Getting Started](getting-started.md): Deploy your first application
 - [Resources](resources.md): Learn about Apps and Routes in detail
 - [Background Information](background-information.md): Review the foundation

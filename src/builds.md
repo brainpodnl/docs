@@ -2,61 +2,78 @@
 order: 5
 hide_menu: false
 metas:
-  description: "Automate container image builds on Brainpod by connecting a GitHub repository. Learn how to set up CI/CD, understand build states, and use build artifacts in your apps."
-  keywords: ["Brainpod builds", "CI/CD", "GitHub Actions", "container build", "automated deployment", "build pipeline", "artifacts"]
+  description: "Automate container image builds on Brainpod by connecting a GitHub repository. Set up CI/CD, understand build states, and use policy-based API keys in workflows."
+  keywords: ["Brainpod builds", "CI/CD", "GitHub Actions", "container build", "automated deployment", "API keys", "policy"]
 ---
 # Builds
 
-Builds give you an automated pipeline from GitHub push to running container. Connect a repository to an app, merge the onboarding PR, and Brainpod automatically builds a new container image every time you push.
+Builds give you an automated pipeline from GitHub push to container image.
+
+Connect a repository to an app, merge the onboarding PR, and Brainpod tracks each build artifact.
+
+## Prerequisites
+
+Before setting up builds, make sure:
+
+1. Account onboarding is complete (billing, payment, first pod)
+2. You have access to the target pod
+3. You have an API key with policy permissions required by your workflow
+
+For first-time setup, see [Onboarding](onboarding.md).
 
 ## How Builds Work
 
-When you connect a repository to an app, Brainpod opens a pull request in that repository. The PR adds a GitHub Actions workflow that handles building and pushing your container image to your pod's private registry on every push to the configured branch.
+When you connect a repository to an app, Brainpod opens a pull request in that repository.
 
-Once you merge that PR, the pipeline is active. From that point on:
+That PR adds a GitHub Actions workflow that builds and pushes images to your pod registry namespace on pushes to the configured branch.
+
+After merging the PR:
 
 1. You push code to GitHub
-2. The GitHub Actions workflow builds your container image
-3. The image is pushed to `registry.brainpod.io/<podname>/`
-4. The build appears in the Builds page with status and metadata
+2. GitHub Actions runs the workflow
+3. The image is pushed to `registry.brainpod.io/<podname>/...`
+4. The build appears in Brainpod with status and metadata
 
-Brainpod does not run the build itself — GitHub Actions does. Brainpod tracks the result and stores the artifact so you can reference it in your app.
+Brainpod tracks and stores build results; the build execution itself runs on GitHub Actions.
 
 ## Setting Up Builds
 
 ### Step 1: Connect GitHub
 
-Before you can connect a repository, your GitHub account needs to be linked to your pod.
+1. Open **Settings** in your pod
+2. Under **GitHub**, click **Connect GitHub**
+3. Authorize the Brainpod GitHub App and select repositories
 
-1. Go to **Settings** in your pod
-2. Under the **GitHub** section, click **Connect GitHub**
-3. Authorize the Brainpod GitHub App and select which repositories it can access
-
-You only need to do this once per GitHub account. The connection is shared across all apps in your pod.
+You only do this once per GitHub account.
 
 ### Step 2: Connect a Repository to an App
 
-Each build pipeline is tied to a specific app. To connect a repository:
+1. Open the app you want to deploy from GitHub
+2. Click **Connect Repository**
+3. Select the repository
 
-1. Open the app you want to deploy from GitHub (create one first if needed)
-2. Click **Connect Repository** in the app editor
-3. Select the repository from the list
-
-If the repository hasn't been onboarded before, Brainpod will open a pull request in it. This PR adds the GitHub Actions workflow file to your repository.
+If the repository is not onboarded yet, Brainpod opens a PR with the workflow file.
 
 ### Step 3: Merge the Onboarding PR
 
-Review the PR Brainpod created and merge it. The workflow it adds will:
+The workflow will:
+- build your container image,
+- push it to your pod registry namespace,
+- report status back to Brainpod.
 
-- Build a Docker image from your repository
-- Push it to `registry.brainpod.io/<podname>/`
-- Report the build status back to Brainpod
+After merge, the next push triggers a build.
 
-Once merged, your pipeline is live. The next push to the configured branch will trigger a build.
+## API Keys for Build Pipelines
+
+Build workflows authenticate with API keys.
+
+API keys are user-scoped and policy-based, so grant only the actions needed for the workflow and restrict access to specific pod resources.
+
+For example, CI keys typically need registry actions (push/pull) and build-related actions for the target pod.
+
+Use separate keys per repository or environment when possible.
 
 ## Build States
-
-Each build goes through the following states:
 
 | State | Meaning |
 |---|---|
@@ -66,40 +83,36 @@ Each build goes through the following states:
 | **Failed** | Build encountered an error |
 | **Cancelled** | Build was cancelled before completion |
 
-Active builds (waiting and pending) are shown at the top of the list, separated from the build history.
-
 ## Build Details
 
-Click any build row to expand its details:
+Open a build row to inspect:
 
-- **Repository**: The GitHub repository that triggered the build
-- **Workflow**: The GitHub Actions workflow name
-- **Commit**: The full Git commit SHA
-- **Branch**: The branch the commit was pushed to
-- **State**: Current build state
-- **Created / Finished**: Timestamps and total duration
-- **Artifacts**: Container images produced by the build, with their full registry URI
+- Repository
+- Workflow
+- Commit SHA
+- Branch
+- State
+- Created/finished timestamps and duration
+- Artifacts with full registry URIs
 
 ## Artifacts
 
-When a build succeeds, it produces one or more artifacts — container images stored in your pod's private registry. Each artifact has:
+Successful builds produce image artifacts in your pod registry.
 
-- A **name** (e.g. `app`)
-- A **URI** pointing to the exact image (e.g. `registry.brainpod.io/<podname>/web@sha256:...`)
-
-You can copy the URI directly from the build details panel and use it in your app's image field. This lets you pin an app to a specific build rather than a floating tag like `latest`.
+You can copy a full artifact URI and pin an app to that exact image digest.
 
 ## Filtering Builds
 
-Use the filter bar at the top of the Builds page to narrow down the list:
+Use filters at the top of the page:
 
-- **Repository**: Show builds from a specific GitHub repository
-- **Branch**: Show builds from a specific branch
+- **Repository**
+- **Branch**
 
-Click **Clear filters** to reset.
+Select **Clear filters** to reset.
 
 ## Next Steps
 
-- [Container Registry](registry.md): Understand where build artifacts are stored
-- [Apps](resources/apps.md): Configure an app to use a built image
-- [Getting Started](getting-started.md): Deploy your first application
+- [API Keys](api-keys.md): Create least-privilege CI keys
+- [Container Registry](registry.md): Registry namespaces and image push flow
+- [Apps](resources/apps.md): Configure apps to use built images
+- [Getting Started](getting-started.md): End-to-end first deployment

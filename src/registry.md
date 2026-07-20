@@ -2,71 +2,82 @@
 order: 4
 hide_menu: false
 metas:
-  description: "Push and manage private container images with Brainpod's built-in OCI registry. Authenticate with Docker, push images, and use them directly in your apps."
-  keywords: ["Brainpod container registry", "Docker registry", "private images", "OCI registry", "CI/CD", "push image"]
+  description: "Push and manage private container images with Brainpod's built-in OCI registry. Authenticate with API keys, push images, and use them directly in your apps."
+  keywords: ["Brainpod container registry", "Docker registry", "private images", "OCI registry", "API keys", "policy"]
 ---
 # Container Registry
 
-Every pod comes with its own private container registry. Push your images, and they're immediately available to your apps-no external registries or credentials needed.
+Every pod comes with its own private container registry. Push images, then reference them directly in your apps.
 
 ## How It Works
 
-The registry is built into the platform. When your apps pull images, they authenticate automatically using machine keys. You don't configure credentials or manage registry access, it just works.
+The registry is built into the platform.
 
-Images are scoped to your pod. Your registry namespace is `registry.brainpod.io/<podname>/`, and all your images live under that namespace. This keeps your images private and isolated from other pods.
+Images are scoped to your pod namespace:
+
+`registry.brainpod.io/<podname>/...`
+
+When apps pull images from your pod namespace, Brainpod handles runtime authentication automatically.
+
+## Pod Name and Namespace
+
+Your registry namespace is based on your pod name (created during onboarding or later in the pod flow).
+
+If your pod is called `production`, your namespace is:
+
+`registry.brainpod.io/production/`
+
+All images for that pod must use that prefix.
 
 ## Using Images in Apps
 
-When you configure an app, reference images from your pod's registry using the full path:
+Reference images with the full registry path:
 
 ```
 registry.brainpod.io/<podname>/web:latest
 registry.brainpod.io/<podname>/api:v1.2.3
 ```
 
-The platform handles authentication automatically. Your apps can pull these images without any additional configuration.
-
 ## Pushing Images Locally
 
-To push images from your local machine, you need to authenticate with the registry. This is where API keys come in.
+To push from your machine, authenticate Docker with an API key.
 
 ### Create an API Key
 
-Generate an API key in the Brainpod dashboard. This key acts as your authentication token for the registry.
+Create an API key in **Settings → API Keys**.
 
-API keys are scoped to your pod and can be revoked at any time. Create separate keys for different environments or team members if needed.
+API keys are user-scoped and policy-based:
+- each key belongs to a user,
+- each key has one or more policy statements,
+- statements define allowed or denied actions on selected pod resources.
+
+For registry pushes, include at least the registry actions you need for the target pod.
 
 ### Login with Docker
 
-Use your API key to authenticate Docker with the registry:
+Authenticate Docker with your API key:
 
 ```bash
 docker login registry.brainpod.io -u api -p <your-api-key>
 ```
 
-The username is always `api`. The password is your API key.
-
 ### Tag and Push
 
-Tag your local image with the full registry path:
+Tag your image with your pod namespace:
 
 ```bash
 docker tag myapp:latest registry.brainpod.io/<podname>/myapp:latest
 ```
 
-Then push it:
+Push it:
 
 ```bash
 docker push registry.brainpod.io/<podname>/myapp:latest
 ```
 
-The image is now available in your pod's registry and can be used by your apps.
+## Organizing Image Names
 
-## Registry Namespace
-
-Your registry namespace is based on your pod name. If your pod is called `production`, your namespace is `registry.brainpod.io/production/`. All images must use this prefix.
-
-You can organize images however you like within your namespace:
+You can organize image names and tags as you prefer inside your pod namespace:
 
 ```
 registry.brainpod.io/production/web:latest
@@ -74,30 +85,24 @@ registry.brainpod.io/production/api:v2.0.0
 registry.brainpod.io/production/worker:staging
 ```
 
-The registry doesn't enforce any structure beyond the pod namespace. Use whatever naming and tagging scheme makes sense for your workflow.
-
 ## Security
 
-Images in your registry are private to your pod. Other pods can't access your images, and you can't access theirs. The platform enforces this isolation automatically.
-
-API keys provide secure access for pushing images. They're scoped to your pod and can be revoked instantly if compromised. Never commit API keys to version control, treat them like passwords.
-
-When apps pull images, they use machine keys that are managed automatically by the platform. These keys are rotated regularly and never exposed to users.
+- Registry images are private per pod.
+- API keys are shown once on creation or roll; store them safely.
+- Revoke or roll keys immediately if they are exposed.
+- Prefer separate keys per environment and automation target.
 
 ## CI/CD Integration
 
-Most CI/CD pipelines can integrate with the registry using the same Docker login approach:
+Most CI systems work with the same Docker login flow:
 
-1. Store your API key as a secret in your CI environment
-2. Login using `docker login registry.brainpod.io -u api -p $API_KEY`
-3. Build and push your images as part of your pipeline
-
-The registry works with any tool that supports Docker registries-GitHub Actions, GitLab CI, Jenkins, CircleCI, and others.
+1. Store the API key as a CI secret
+2. Run `docker login registry.brainpod.io -u api -p $API_KEY`
+3. Build and push images to `registry.brainpod.io/<podname>/...`
 
 ## Next Steps
 
-Ready to push your first image?
-
-- [Apps](resources/apps.md): Use registry images in your apps
+- [API Keys](api-keys.md): User-scoped policy-based key management
 - [Builds](builds.md): Automate image builds from GitHub
-- [Getting Started](getting-started.md): Deploy an app using a registry image
+- [Apps](resources/apps.md): Use registry images in app resources
+- [Onboarding](onboarding.md): First-time account and pod setup

@@ -2,102 +2,118 @@
 order: 1
 hide_menu: false
 metas:
-  description: "Deploy your first application on Brainpod in minutes. Step-by-step guide to creating an app, exposing it with a route, and going live with automatic HTTPS."
-  keywords: ["Brainpod getting started", "deploy container", "create app", "create route", "quick start", "tutorial"]
+  description: "Deploy your first application on Brainpod in minutes. Complete onboarding, create your first pod, deploy an app, and expose it with a route."
+  keywords: ["Brainpod getting started", "onboarding", "deploy container", "create app", "create route", "quick start"]
 ---
 # Getting Started
 
-This guide walks you through deploying your first application on Brainpod. You'll create an app, expose it with a route, and see your application running on the internet in minutes.
+This guide walks you through your first deployment on Brainpod.
+
+You will:
+- complete onboarding,
+- create your first pod,
+- deploy an app,
+- and expose it on the internet with a route.
+
+## Step 0: Complete Onboarding
+
+Before full dashboard access is available, complete onboarding:
+
+1. Add billing details
+2. Add a payment method
+3. Create your first pod
+
+If you have not done this yet, start with [Onboarding](onboarding.md).
 
 ## What You'll Build
 
 By the end of this guide, you'll have:
 - A containerized application running on Brainpod
 - A public URL with automatic HTTPS
-- Understanding of the core deployment workflow
+- Understanding of the core draft → deploy workflow
 
-## Step 1: Create Your First App
+## Step 1: Open Your Pod
 
-An app is your containerized application running on Brainpod's infrastructure.
+Go to your pod in the Brainpod dashboard.
 
-1. Navigate to your pod in the Brainpod dashboard
-2. Click **Create App** or go to the Apps section
+A pod is your isolated workspace. Apps, routes, images, and revisions all live inside it.
+
+## Step 2: Create Your First App
+
+An app is your containerized workload running on Brainpod infrastructure.
+
+1. Open the **Apps** section
+2. Click **Create App**
 3. Configure your app:
    - **Name**: `web` (or any descriptive name)
-   - **Instance Type**: Select `small` for this example
-   - **Replicas**: `1` for this example
-   - **Image**: `nginx:latest` (or your container image)
-   - **Environment Variables**: Leave empty for now
+   - **Instance Type**: `small` for this example
+   - **Replicas**: `1`
+   - **Image**: `nginx:latest` (or your own image)
+   - **Environment Variables**: leave empty for now
 4. Click **Create**
 
-Your app configuration is now saved as a draft. It's not running yet. We need to deploy it first.
+Your app is now saved as a draft. It is not running yet.
 
-## Step 2: Deploy Your App
+## Step 3: Deploy Your App
 
-Deploying makes your app revision active and starts your containers.
-
-1. Review your app configuration in the draft
-2. Click **Deploy** 
-3. Wait for the deployment to complete (usually takes 30-60 seconds)
-
-Your app is now running! However, it's not accessible from the internet yet. For that, we need a route.
-
-## Step 3: Create a Route
-
-A route exposes your app to the internet with a hostname and automatic TLS.
-
-1. Go to the Routes section in your pod
-2. Click **Create Route**
-3. Configure your route:
-   - **Name**: `web-route` (or any descriptive name)
-   - **Routing Rules**: 
-     - Path prefix: `/`
-     - Target app: `web` (select the app you just created)
-4. Click **Create**
-
-## Step 4: Deploy Your Route
-
-Just like apps, routes need to be deployed to go live.
-
-1. Review your route configuration
+1. Review your app draft
 2. Click **Deploy**
-3. Wait for the deployment to complete
+3. Wait for deployment to complete
 
-Your route is now live! You'll see a hostname that ends with `*.prod.brainpod.io`.
+Your app is now running, but not publicly reachable yet.
 
-## Step 5: Access Your Application
+## Step 4: Create a Route
 
-Click on the hostname provided by your route. Your application is now accessible on the internet with automatic HTTPS!
+A route exposes your app with a hostname and automatic TLS.
 
-If you deployed the nginx example, you'll see the default nginx welcome page.
+1. Open **Routes**
+2. Click **Create Route**
+3. Configure:
+   - **Name**: `web-route`
+   - **Routing rule**:
+     - Path prefix: `/`
+     - Target app: `web`
+4. Click **Create**
+
+## Step 5: Deploy Your Route
+
+1. Review the route draft
+2. Click **Deploy**
+3. Wait for deployment to complete
+
+You now get a public hostname for your app.
+
+## Step 6: Open Your Application
+
+Open the route hostname in your browser.
+
+If you used `nginx:latest`, you should see the default nginx page.
 
 ## Understanding the Workflow
 
-The workflow you just completed is the core Brainpod deployment pattern:
+The same pattern applies to almost everything in Brainpod:
 
-1. **Create drafts**: Configure your resources without affecting production
-2. **Review changes**: Inspect your configuration before deploying
-3. **Deploy**: Make your changes live
-4. **Roll back**: If something goes wrong, revert to a previous revision
-
-This same workflow applies whether you're deploying your first app or updating a complex multi-service application.
+1. **Create drafts**: define changes safely
+2. **Review changes**: verify before rollout
+3. **Deploy**: make changes live
+4. **Roll back**: restore a previous revision if needed
 
 ## Next Steps
 
-Now that you have a basic application running, explore these topics:
-
-- [Learn about resources](resources.md) and how apps and routes work together
-- [Configure apps](resources/apps.md) with environment variables and scaling
-- [Push your own images](registry.md) to Brainpod's private registry
-- [Set up custom domains](custom_domains.md) for your routes
+- [Onboarding](onboarding.md): Review account setup requirements
+- [Resources](resources.md): Learn how apps and routes work in depth
+- [API Keys](api-keys.md): Create user-scoped policy-based keys
+- [Container Registry](registry.md): Push your own images
+- [Builds](builds.md): Automate builds from GitHub
+- [Custom domains](custom_domains.md): Use your own domain names
 
 ## Common Questions
 
-**How do I update my application?**  
-Update the image tag in your app configuration, create a new draft, and deploy it.
+**How do I update my app?**
+Update the image in the app draft and deploy a new revision.
 
-**Can I roll back a deployment?**  
-Yes! Every deployment creates a revision. You can roll back to any previous revision from the history.
+**Can I roll back a deployment?**
+Yes. Every deployment creates a revision you can restore.
 
-**How do I use my own domain?**  
-Add a custom domain to your route and point your DNS records to Brainpod. TLS certificates are automatic.
+**How do I use my own domain?**
+Add a custom domain to your route and point DNS to Brainpod. TLS is handled automatically.

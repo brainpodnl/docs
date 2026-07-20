@@ -16,13 +16,13 @@ Every route needs at least one routing rule. The most common pattern is routing 
 
 ## Hostnames and Domains
 
-When you create a route, you get a unique hostname under `*.prod.brainpod.io`. This is immediately available (no DNS configuration, no waiting). The hostname is yours as long as the route exists.
+When you create a route, you get a unique hostname under `*.route.brainpod.io`. This is immediately available (no DNS configuration, no waiting). The hostname is yours as long as the route exists.
 
 Want to use your own domain? Add a custom domain to your route. Point your DNS records to us, and we handle the rest. Custom domains work exactly like the default hostnames, with the same automatic TLS and routing capabilities.
 
 ## Automatic TLS
 
-Every route comes with automatic TLS certificates. We provision certificates when you create the route, renew them before expiry, and handle all the complexity. This works for both `*.prod.brainpod.io` hostnames and your custom domains.
+Every route comes with automatic TLS certificates. We provision certificates when you create the route, renew them before expiry, and handle all the complexity. This works for both `*.route.brainpod.io` hostnames and your custom domains.
 
 Your traffic is always encrypted. No manual certificate management, no worrying about expiration. HTTPS just works.
 

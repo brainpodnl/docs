@@ -7,9 +7,9 @@ metas:
 ---
 # Custom domains
 
-Every route on Brainpod comes with a unique hostname under `*.prod.brainpod.io`. While these work great for testing and internal services, you'll likely want to use your own domain for production applications.
+Every route on Brainpod comes with a unique hostname under `*.route.brainpod.io`. While these work great for testing and internal services, you'll likely want to use your own domain for production applications.
 
-Custom domains let you serve your apps from any domain you own. When you add a custom domain to a route, we provision a TLS certificate and configure routing for that domain. Point your DNS to Brainpod, and we handle the rest automatic TLS certificates, traffic routing, and renewals.
+Custom domains let you serve your apps from any domain you own. When you add a custom domain to a route, we provision a TLS certificate and configure routing for that domain. Point your DNS to Brainpod, and we handle the rest: automatic TLS certificates, traffic routing, and renewals.
 
 ## Adding a Custom Domain
 
@@ -28,10 +28,10 @@ The Domains page shows all your custom domains with their verification states an
 
 ## DNS Configuration
 
-To configure DNS for your custom domain, create a CNAME record pointing to the DNS target provided in the Domains page. This is typically something like your-route.prod.brainpod.io.
+To configure DNS for your custom domain, create a CNAME record pointing to the DNS target provided in the Domains page. This is typically something like `your-route.route.brainpod.io`.
 
 ```
-www.example.com.  CNAME  your-route.prod.brainpod.io.
+www.example.com.  CNAME  your-route.route.brainpod.io.
 ```
 
 CNAME records automatically follow any infrastructure changes on our side, so you won't need to update them if our routing changes.
