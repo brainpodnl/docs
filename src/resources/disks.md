@@ -44,6 +44,6 @@ You can increase a disk's size at any time by editing the resource and entering 
 ## Next Steps
 
 - [Apps](apps.md): Mount a disk to your app
-- [Config](config.md): Manage shared configuration and secrets
+- [Config](config.md): Manage text-based configuration files
 - [PostgresDB](postgres.md): Managed PostgreSQL using a disk for storage
 - [Resources](../resources.md): Overview of Brainpod resources

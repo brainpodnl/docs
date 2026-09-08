@@ -2,7 +2,7 @@
 order: 1
 hide_menu: false
 metas:
-  description: "Deploy WordPress on Brainpod with a managed MariaDB database and persistent storage. Step-by-step blueprint for a production-ready WordPress installation."
+  description: "Deploy WordPress with a managed MariaDB database and persistent storage for the database, site files, and uploads."
   keywords: ["WordPress Brainpod", "deploy WordPress", "WordPress hosting", "managed WordPress", "self-hosted WordPress"]
 ---
 # WordPress
@@ -15,7 +15,7 @@ The blueprint creates the following resources in your pod:
 
 - **2 Disks**: one for the database, one for your WordPress files and uploads
 - **1 MariaDB**: a managed MySQL-compatible database that WordPress connects to automatically
-- **1 App**: WordPress 6.9 running on PHP 8.2 with Apache
+- **1 App**: WordPress 7.0.2 running on PHP 8.2 with Apache
 - **1 Route**: a public hostname under `*.route.brainpod.io` with automatic TLS
 
 The database connection is wired up automatically. You do not need to configure `WORDPRESS_DB_HOST`, `WORDPRESS_DB_USER`, `WORDPRESS_DB_PASSWORD`, or `WORDPRESS_DB_NAME` yourself.
@@ -26,9 +26,9 @@ The database connection is wired up automatically. You do not need to configure 
 2. Navigate to **Blueprints**
 3. Select **WordPress**
 4. Give your deployment a name (e.g. `myblog`): this prefixes all created resources
-5. Click **Deploy**
+5. Review the generated resources and choose **Deploy**
 
-Brainpod creates all resources and deploys them. Once the deployment is complete, open the hostname shown on your Route. You will be greeted by the WordPress setup wizard.
+Brainpod creates and deploys the resource set. Once every resource is healthy, open the hostname shown on the Route to start the WordPress setup wizard.
 
 ## Finishing the WordPress Setup
 

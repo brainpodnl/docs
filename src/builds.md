@@ -36,6 +36,18 @@ After merging the PR:
 
 Brainpod tracks and stores build results; the build execution itself runs on GitHub Actions.
 
+## Build locally with the CLI
+
+Use the CLI when you want to build from a local working tree rather than a connected GitHub repository:
+
+```sh
+brainpod --pod my-pod image build api . --tag v1
+```
+
+The CLI uses a `Dockerfile` when one is present and otherwise uses Railpack. Override detection with `--builder dockerfile` or `--builder railpack`. The command pushes the image directly to the selected pod's registry namespace and returns an immutable digest reference for the App resource.
+
+Local builds require Docker with Buildx and an API key with `registry:push`. See [Brainpod CLI](cli.md) for platform selection and OCI output options.
+
 ## Setting Up Builds
 
 ### Step 1: Connect GitHub

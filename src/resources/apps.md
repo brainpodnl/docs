@@ -7,11 +7,11 @@ metas:
 ---
 # Apps
 
-It's the core resource in Brainpod. It's your actual code, packaged as a container and running with the configuration you specify.
+An App resource runs a container image with the compute size, replica count, environment, runtime identity, health checks, and mounts you specify.
 
 ## How Apps Work
 
-When you create an app, you're telling us what to run and how to run it. We handle the orchestration-scheduling containers, monitoring health, restarting failures, and scaling based on your configuration.
+When you deploy an App, Brainpod schedules the requested instances, monitors their health, and restarts failed containers. Routes can direct HTTP traffic to a healthy App instance.
 
 Each app runs one or more instances of your container. If an instance fails, we automatically restart it. If you scale up, we add more instances and balance traffic across them. The container image you specify gets pulled and deployed according to your settings.
 
@@ -34,9 +34,9 @@ The **Advanced** tab in the app editor exposes additional settings for lifecycle
 
 ### Init Script
 
-An init script runs before your app starts. Use it to set up file permissions, seed data, or do any one-time preparation the app needs before it can run.
+Lifecycle initialization runs before the App starts. Configure either a shell script or a dedicated initialization image and command for one-time preparation.
 
-The script runs as root in a minimal shell environment. It has access to the same mounted volumes as your app, making it useful for fixing ownership on disk mounts before your app process takes over (e.g. `chown -R 1000:1000 /data`).
+Initialization uses the App's non-root runtime identity and has access to the configured mounts. When lifecycle initialization is enabled, both UID and GID must be set to non-zero values. Brainpod prepares writable disk ownership before initialization, so initialization scripts should not use `root` or `chown`.
 
 ### Runtime
 
@@ -46,7 +46,7 @@ The runtime settings control what user and group your app process runs as:
 - **GID**: The group ID the app process runs as.
 - **FS Group**: A group ID applied to all mounted volumes. Files written to a disk or config mount will be owned by this group, which is useful when your app needs consistent file ownership on persistent storage.
 
-All three fields are optional. If left empty, the defaults from your container image are used.
+All three fields are optional. Brainpod uses runtime metadata detected from the image when available and otherwise defaults UID and GID to `1000`. Explicit values must be between `1` and `65535`.
 
 ### Readiness Check
 
@@ -54,6 +54,7 @@ A readiness check tells Brainpod when your app is ready to receive traffic. Unti
 
 The check has the following fields:
 
+- **Command**: A command that must complete successfully.
 - **Port**: The port to probe on your app.
 - **Host**: The hostname to connect to. Defaults to localhost if left empty.
 - **Path**: An HTTP path to check (e.g. `/health`). When combined with a port, Brainpod makes an HTTP GET request and considers the app ready on a 2xx or 3xx response. Without a path, it falls back to a TCP connection check.

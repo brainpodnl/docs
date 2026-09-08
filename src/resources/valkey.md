@@ -22,7 +22,7 @@ Connections to Valkey are always encrypted with TLS and require password authent
 Valkey has four fields:
 
 - **Name**: A unique identifier within your pod. Use descriptive names like `cache` or `sessions`.
-- **Instance**: The compute size for your store. Since Valkey is in-memory, the instance size directly determines how much data you can hold: `.5x`, `1x`, `2x`, or `4x`.
+- **Instance**: The compute size for your store. Since Valkey is in-memory, the instance size directly affects available memory: `.5x`, `1x`, `2x`, `4x`, or `8x`.
 - **Version**: The Valkey version. Currently, version 9 is supported.
 - **Disk**: The Disk resource used for persistence. You must create a Disk first and reference it here. This field cannot be changed after creation.
 
@@ -54,4 +54,5 @@ In your app's environment variable configuration, you would set it up like this:
 
 - [Apps](apps.md): Connect your app to a Valkey store
 - [Disks](disks.md): Create a disk for your Valkey instance to use
+- [Database tunnels](../database-tunnels.md): Connect a local Valkey client
 - [Resources](../resources.md): Overview of Brainpod resources

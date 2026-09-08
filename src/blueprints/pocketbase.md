@@ -14,7 +14,7 @@ The PocketBase blueprint deploys a self-hosted PocketBase backend on Brainpod. P
 The blueprint creates the following resources in your pod:
 
 - **1 Disk**: persistent storage for your PocketBase data at `/pb_data`
-- **1 App**: PocketBase v0.36.7 running on port 8090
+- **1 App**: PocketBase v0.39.8 running on port 8090
 - **1 Route**: a public hostname under `*.route.brainpod.io` with automatic TLS
 
 ## Deploying the Blueprint
@@ -23,9 +23,9 @@ The blueprint creates the following resources in your pod:
 2. Navigate to **Blueprints**
 3. Select **PocketBase**
 4. Give your deployment a name (e.g. `backend`): this prefixes all created resources
-5. Click **Deploy**
+5. Review the generated resources and choose **Deploy**
 
-Brainpod creates all resources and deploys them. Once the deployment is complete, you need to create your first superuser account before you can use the admin UI.
+Brainpod creates and deploys the resource set. Once every resource is healthy, create the first superuser account before using the admin UI.
 
 ## Creating Your Superuser Account
 

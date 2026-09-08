@@ -45,8 +45,9 @@ Typical actions used in API key policies include:
 - `pods:read`
 - `revisions:read`
 - `resources:read`
+- `database:connect`
 
-Choose only what the integration needs.
+Choose only what the integration needs. Database tunnels require `database:connect`; resolving a database by name and retrieving connection details also requires `resources:read`.
 
 ## Pod Resource Scoping
 
@@ -96,4 +97,6 @@ Store key in your CI secret store and inject it only into jobs that need it.
 
 - [Container Registry](registry.md)
 - [Builds](builds.md)
+- [Database tunnels](database-tunnels.md)
+- [API reference](api-reference.md)
 - [Onboarding](onboarding.md)

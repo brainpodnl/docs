@@ -2,69 +2,82 @@
 order: 0
 hide_menu: false
 metas:
-  description: "Learn about Brainpod's core concepts: pods, resources, and revisions. A git-like interface for your cloud infrastructure without the Kubernetes complexity."
-  keywords: ["Brainpod concepts", "pods", "resources", "revisions", "infrastructure management", "cloud-native"]
+  description: "Understand Brainpod pods, resources, mutable drafts, deployment revisions, health states, history, and rollback behavior."
+  keywords: ["Brainpod concepts", "pods", "resources", "revisions", "deployment workflow", "rollback"]
 ---
-# Brainpod Concepts
+# Brainpod concepts
 
-Now that you understand the cloud-native foundation, let's explore how Brainpod organizes and manages your applications.
+Brainpod organizes application infrastructure around three concepts: pods, resources, and revisions. Understanding their relationship is important before operating production workloads.
 
 ## Pods
 
-A pod is your own isolated micro-cluster within Brainpod, your personal workspace where you can deploy applications, manage data, and control your infrastructure.
+A pod is an isolated workspace for an application environment. Resources, revisions, container images, events, and settings are scoped to a pod.
 
-Almost everything belongs to a pod. Resources, container images, and settings are all contained within your pod. This isolation means you can safely experiment and deploy without conflicts. Multiple team members can work within the same pod.
-
-Pods give you clear boundaries and ownership. Development stays separate from production. Different projects get their own space. You control what happens inside your pod while we handle the infrastructure.
+Use separate pods when workloads require independent ownership, access policies, image namespaces, or deployment histories. API key policies can grant access to individual pods or to all pods available to the key owner.
 
 ## Resources
 
-We use a resource model to represent your infrastructure. Each resource is a high-level abstraction-a single resource might map to dozens of underlying components like deployments, services, load balancers, and configurations.
+A resource is a declarative definition of infrastructure managed by Brainpod. The current public API supports:
 
-You work at a much higher level than traditional cloud providers. Instead of configuring individual pieces, you simply define an app and a route. The platform handles the complexity.
+- [Apps](resources/apps.md) for containerized workloads
+- [Routes](resources/routes.md) for HTTP routing and TLS termination
+- [Disks](resources/disks.md) for persistent storage
+- [Config](resources/config.md) for text-based configuration files
+- [PostgresDB](resources/postgres.md) for PostgreSQL
+- [MariaDB](resources/mariadb.md) for MariaDB
+- [Valkey](resources/valkey.md) for key-value storage
+- [SQL Server](resources/mssql.md) for Microsoft SQL Server Express
 
-Currently, we support two resource types:
+Resources can reference one another. A Route targets an App, an App can mount a Disk or Config, and an App can reference variables exported by a database.
 
-- **[Apps](resources/apps.md)**: Your containerized applications
-- **[Routes](resources/routes.md)**: HTTP/HTTPS routing to your apps
+## Mutable head and revisions
 
-Learn more in the [Resources documentation](resources.md).
+Each pod has a mutable head where resource changes are prepared. Creating, replacing, deleting, or installing resources changes this draft configuration without immediately changing the running environment.
 
-## Revisions
+Deploying promotes the mutable head into an immutable revision. Previous revisions remain available for inspection and comparison.
 
-Most deployment tools lack proper version control for infrastructure changes. There's no clear history of what changed or when. We solve this with revisions.
+The deployment lifecycle uses these states:
 
-### Git-Like Interface
+| State | Meaning |
+|---|---|
+| **Draft** | Resource changes are being prepared on the mutable head |
+| **Waiting** | A deployment has been requested and is waiting to start |
+| **Pending** | The platform is applying the revision |
+| **Ready** | Every resource in the revision reports healthy |
+| **Deployed** | The revision is the pod's deployed revision |
+| **Failed** | The revision could not be applied successfully |
 
-Revisions give you a git-like interface built directly into the platform. Every change to your resources creates a new revision. You can see exactly what changed, compare versions, and track the evolution of your infrastructure.
+A failed or cancelled revision stops CLI wait operations immediately. A wait timeout does not create another deployment; it reports which resources remain unhealthy.
 
-You get a complete audit trail. Who made the change? When? What was modified? It's all in the revision history.
+## Deployment workflow
 
-### How Revisions Work
+Use the same workflow for small and multi-service deployments:
 
-When you create or modify a resource, we create a new revision in the `draft` state. In draft, you can safely make changes without affecting production.
+1. Create or update resources on the mutable head.
+2. Validate the complete resource graph and review the diff.
+3. Deploy the mutable head.
+4. Wait for resource health and inspect events when a resource remains unhealthy.
+5. Prepare the next change on the new mutable head.
 
-Once you're ready, click "Deploy." The revision moves to `waiting` while the platform picks it up. When deployment starts, it moves to `pending`. Finally, it reaches either `ready` (success) or `failed`.
+With the CLI:
 
-Previous revisions remain in history, ready to be restored if needed. You can compare any two revisions to see exactly what changed.
+```sh
+brainpod resource create --file resources.json --dry-run
+brainpod resource create --file resources.json
+brainpod deploy --summary "Deploy application" --wait
+```
 
-### Roll Back with Confidence
+See [Brainpod CLI](cli.md) for revision inspection and machine-readable output.
 
-Made a change that caused problems? Rolling back is simple. Restore a previous revision, and we return your infrastructure to that exact state. No guessing about what settings to change, just return to a known-good configuration.
+## Restore an earlier configuration
 
-This makes experimentation safer. Try new configurations, test approaches, and know you can always get back to what worked.
+Revision history provides the resource configuration for earlier deployments. Restoring an earlier revision creates a deployment from that known configuration; it does not require manually reversing every individual field change.
 
-## Putting It Together
+Before restoring production infrastructure, inspect the revision diff and consider the effect on persistent data. Restoring resource definitions does not necessarily reverse changes already written to a Disk or database.
 
-You create a pod for your project. Within that pod, you define resources, an app and a route. When you create or update resources, we create revisions that capture the changes. After deploying, we translate your high-level definitions into the necessary cloud infrastructure.
+## Next steps
 
-Your team sees the complete history, can roll back if needed, and collaborates on infrastructure like you do with code.
-
-## Next Steps
-
-Ready to work with specific resource types and start building?
-
-- [Onboarding](onboarding.md): Complete account and first-pod setup
-- [Getting Started](getting-started.md): Deploy your first application
-- [Resources](resources.md): Learn about Apps and Routes in detail
-- [Background Information](background-information.md): Review the foundation
+- [Getting started](getting-started.md): Deploy an App and Route
+- [Resources](resources.md): Review resource configuration
+- [API keys](api-keys.md): Define pod-scoped access
+- [API reference](api-reference.md): Automate the deployment workflow

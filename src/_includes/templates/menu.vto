@@ -1,0 +1,38 @@
+<nav class="menu-container" id="menu-container" aria-label="Documentation navigation">
+  <a class="menu-brand" href="/">
+    <img src="/favicon.svg" alt="" width="32" height="32">
+    <span>
+      <strong>Brainpod</strong>
+      <small>Documentation</small>
+    </span>
+  </a>
+
+  {{ if alternates?.length > 1 }}
+    <ul class="menu-languages">
+      {{ for alt of alternates }}
+        <li>
+          <a
+            href="{{ alt.url }}"
+            {{ if alt.lang == lang }}aria-current="page"{{ /if }}
+            title="{{ alt.title |> escape }}"
+          >
+            {{ alt.lang |> langName }}
+          </a>
+        </li>
+      {{ /for }}
+    </ul>
+  {{ /if }}
+
+  <p class="menu-heading">Documentation</p>
+  {{ set menu = alternates?.length ? `/menu-${lang}.json` : "/menu.json" }}
+  <tree-menu
+    class="menu"
+    data-base='{{ "/" |> url }}'
+    data-url="{{ menu |> url }}"
+  ></tree-menu>
+
+  <div class="menu-footer">
+    <a href="https://console.brainpod.io">Open console <span aria-hidden="true">↗</span></a>
+    <a href="https://brainpod.io">brainpod.io <span aria-hidden="true">↗</span></a>
+  </div>
+</nav>

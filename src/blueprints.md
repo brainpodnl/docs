@@ -2,20 +2,54 @@
 order: 4
 hide_menu: false
 metas:
-  description: "Brainpod Blueprints are pre-configured deployment setups for popular applications like WordPress, PocketBase, and Next.js. Get up and running fast."
-  keywords: ["Brainpod blueprints", "WordPress hosting", "PocketBase deployment", "Next.js hosting", "pre-configured apps"]
+  description: "Compare Brainpod blueprints for WordPress, PocketBase, Bifrost, Ghost, Forgejo, Next.js, Laravel, and Django deployments."
+  keywords: ["Brainpod blueprints", "WordPress", "PocketBase", "Bifrost", "Ghost", "Forgejo", "Next.js", "Laravel", "Django"]
 ---
 # Blueprints
 
-Blueprints are pre-configured setups for common applications on Brainpod. Each blueprint walks you through deploying a specific stack with the right resources and configuration.
+Blueprints install a predefined set of resources on a pod's mutable head. You can review the resulting draft before deploying it.
 
-## Available Blueprints
+## Software
 
-- **[WordPress](blueprints/wordpress.md)**: Deploy a WordPress site with a managed database
-- **[PocketBase](blueprints/pocketbase.md)**: Run a self-hosted PocketBase backend
-- **[Next.js](blueprints/nextjs.md)**: Deploy a Next.js application
+- **[WordPress](blueprints/wordpress.md)**: WordPress with MariaDB and persistent application storage
+- **[PocketBase](blueprints/pocketbase.md)**: PocketBase with persistent SQLite and file storage
+- **[Bifrost](blueprints/bifrost.md)**: AI gateway with PostgreSQL and mounted configuration
+- **[Ghost](blueprints/ghost.md)**: Publishing platform with MariaDB and persistent content storage
+- **[Forgejo](blueprints/forgejo.md)**: Git forge with PostgreSQL and repository storage
 
-## Next Steps
+## Frameworks
 
-- [Brainpod Resources](resources.md): Learn about the available resource types
-- [Getting Started](getting-started.md): Deploy your first app
+Framework blueprints create an App that waits for a build artifact. Connect a repository and complete a successful build before the application can serve traffic.
+
+- **[Next.js](blueprints/nextjs.md)**: Next.js App and Route on port 3000
+- **[Laravel](blueprints/laravel.md)**: Laravel App with MariaDB and generated application configuration
+- **[Django](blueprints/django.md)**: Django App with PostgreSQL and generated application configuration
+
+## Install a blueprint
+
+In the console:
+
+1. Open the target pod.
+2. Select **Blueprints**.
+3. Select a blueprint and complete its required inputs.
+4. Choose whether to keep the result as a draft or install and deploy it.
+5. Review the generated resources and deployment status.
+
+With the CLI:
+
+```sh
+brainpod blueprint list
+brainpod blueprint get wordpress
+brainpod --pod my-pod blueprint install wordpress
+brainpod --pod my-pod deploy --wait
+```
+
+Installing through the API or CLI changes the mutable head without deploying it. Run `deploy` after reviewing the result.
+
+Blueprint resource names are prefixed during installation so that references remain local to the installed stack.
+
+## Next steps
+
+- [Brainpod CLI](cli.md): Inspect blueprint metadata and input schemas
+- [Builds](builds.md): Connect a framework blueprint to a repository
+- [Resources](resources.md): Understand the generated resource graph

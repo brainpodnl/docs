@@ -24,30 +24,12 @@ Output is written to `./_site`.
 
 ## Structure
 
-```
-src/
-├── index.md                  # Homepage
-├── getting-started.md        # Getting started guide
-├── brainpod.md               # Core concepts
-├── background-information.md # Cloud-native background
-├── resources.md              # Resources overview
-├── resources/
-│   ├── apps.md               # Apps resource
-│   ├── routes.md             # Routes resource
-│   ├── disks.md              # Disks resource
-│   ├── config.md             # Config resource
-│   ├── postgres.md           # PostgresDB resource
-│   ├── mariadb.md            # MariaDB resource
-│   └── valkey.md             # Valkey resource
-├── blueprints.md             # Blueprints overview
-├── blueprints/
-│   ├── wordpress.md          # WordPress blueprint
-│   ├── pocketbase.md         # PocketBase blueprint
-│   └── nextjs.md             # Next.js blueprint
-├── builds.md                 # Builds
-├── custom_domains.md         # Custom domains
-└── registry.md               # Container registry
-```
+- `src/`: Published documentation and site assets
+- `src/resources/`: Resource reference
+- `src/blueprints/`: Blueprint guides
+- `src/_includes/`: Theme template overrides
+- `src/llms.page.ts`: Generated `llms.txt` and `llms-full.txt` endpoints
+- `.pi/skills/update-docs/`: Documentation synchronization skill
 
 ## Adding a Page
 
@@ -64,4 +46,23 @@ metas:
 # Page Title
 ```
 
-Pages inside a subdirectory (e.g. `resources/`) automatically appear nested under their parent in the sidebar.
+Pages inside a subdirectory (for example, `resources/`) automatically appear nested under their parent in the sidebar.
+
+## LLM-readable documentation
+
+The build publishes two text endpoints:
+
+- `/llms.txt`: A concise, categorized index of the documentation
+- `/llms-full.txt`: The complete documentation corpus in one text file
+
+Both files are generated from published Markdown by `src/llms.page.ts`. Do not edit files in `_site/`.
+
+## Updating from product sources
+
+Use the project skill when synchronizing documentation with the platform, CLI, or public API:
+
+```text
+/skill:update-docs
+```
+
+The skill treats `../brainpod`, `../cli`, and the public OpenAPI contract as authoritative sources and documents its verification requirements.

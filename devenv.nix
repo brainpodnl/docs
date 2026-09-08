@@ -8,7 +8,7 @@ let
 in
 {
   packages = with pkgs-unstable; [
-    nodePackages.prettier
+    prettier
     nixd
   ];
 
@@ -19,7 +19,4 @@ in
     deno.enable = true;
     deno.package = pkgs-unstable.deno;
   };
-
-  process.manager.implementation = "overmind";
-
 }
