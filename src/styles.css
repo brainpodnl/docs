@@ -62,7 +62,7 @@ body {
   height: 100vh;
   box-sizing: border-box;
   display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
   background: #f7f8fa;
   border-right: 1px solid #e4e7ec;
   padding: 1.75rem 1.25rem 1.25rem max(1.25rem, calc((100vw - 1440px) / 2));
@@ -129,16 +129,29 @@ body {
   scrollbar-color: #344054 transparent;
 }
 
-.menu > ul {
+.menu-group {
+  margin-bottom: 1.35rem;
+}
+
+.menu-group > h2 {
+  margin: 0 0 0.35rem 0.625rem;
+  color: var(--color-dim);
+  font-size: 0.6875rem;
+  font-weight: 750;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.menu-group > ul,
+.menu-group details > ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.menu > ul ul {
-  list-style: none;
-  margin: 0.15rem 0 0.5rem 0.75rem;
-  padding: 0 0 0 0.75rem;
+.menu-group details > ul {
+  margin: 0.15rem 0 0.25rem 0.75rem;
+  padding-left: 0.75rem;
   border-left: 1px solid var(--color-line);
 }
 
@@ -154,6 +167,11 @@ body {
   padding-right: 1.75rem;
   border-radius: var(--border-radius);
   background-position-x: calc(100% - 0.5rem);
+  cursor: pointer;
+}
+
+.menu summary::marker {
+  color: var(--color-dim);
 }
 
 .menu a,
@@ -459,6 +477,43 @@ body {
   box-shadow: 0 1px 2px rgb(16 24 40 / 0.08);
 }
 
+.cli-quickstart {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 1.5rem;
+  align-items: center;
+  margin: 2rem 0 3.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  background: var(--color-highlight);
+}
+
+.cli-quickstart h2 {
+  margin: 0.45rem 0 0.5rem;
+  padding: 0;
+  font-size: 1.35rem;
+}
+
+.cli-quickstart p {
+  margin: 0 0 0.75rem;
+  color: var(--color-dim);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.cli-quickstart > div > a {
+  font-size: 0.875rem;
+  font-weight: 650;
+}
+
+.cli-quickstart pre {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+}
+
 .docs-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -725,6 +780,11 @@ copy-code-button button.copied {
 
   .docs-hero h1 {
     font-size: 2.75rem;
+  }
+
+  .cli-quickstart {
+    grid-template-columns: 1fr;
+    padding: 1.1rem;
   }
 
   .docs-grid {

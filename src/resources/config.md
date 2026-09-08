@@ -36,6 +36,22 @@ You can add multiple mounts to a single app, pulling different files from the sa
 
 Config is designed for non-sensitive configuration. For passwords, API keys, and other secrets, use environment variables on the app instead.
 
+## Use the CLI
+
+Inspect the Config schema and retrieve a configuration resource:
+
+```sh
+brainpod describe resource config --json
+brainpod --pod my-pod resource get config app-settings
+```
+
+To update the files, submit the complete replacement document and deploy the resulting revision:
+
+```sh
+brainpod --pod my-pod resource replace config app-settings --file config.json
+brainpod --pod my-pod deploy --wait
+```
+
 ## Next Steps
 
 - [Apps](apps.md): Mount a Config into your app

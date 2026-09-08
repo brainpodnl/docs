@@ -50,6 +50,23 @@ In your app's environment variable configuration, you would set it up like this:
 - **Name**: `REDIS_URL`
 - **Value**: `${cache.uri}` (where `cache` is your Valkey resource name)
 
+## Use the CLI
+
+Inspect the schema and exported variables before creating the resource:
+
+```sh
+brainpod describe resource valkey --json
+brainpod --pod my-pod resource variables valkey cache
+```
+
+Open a temporary tunnel for `valkey-cli`, `redis-cli`, or another local client:
+
+```sh
+brainpod --pod my-pod tunnel cache 127.0.0.1:16379
+```
+
+Keep the command running and use the credentials and connection details it prints. The API key requires `database:connect`; name resolution and credential retrieval also require `resources:read`. See [Database tunnels](../database-tunnels.md) for session and security behavior.
+
 ## Next Steps
 
 - [Apps](apps.md): Connect your app to a Valkey store

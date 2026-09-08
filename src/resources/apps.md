@@ -68,6 +68,18 @@ Mounts attach external storage or configuration files into your app at a specifi
 
 You can add multiple mounts to a single app.
 
+## Use the CLI
+
+Inspect the App schema before creating resource JSON, then inspect the deployed App and follow its events:
+
+```sh
+brainpod describe resource app --json
+brainpod --pod my-pod resource get app web
+brainpod --pod my-pod events --watch --resource web --kind app
+```
+
+Use `brainpod resource create --file resources.json --dry-run` to validate an App document before changing the mutable head.
+
 ## Next Steps
 
 - [Routes](routes.md): Make your app accessible on the internet

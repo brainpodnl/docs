@@ -52,6 +52,23 @@ In your app's environment variable configuration, you would set it up like this:
 - **Name**: `DATABASE_URL`
 - **Value**: `${db.uri}` (where `db` is your MariaDB resource name)
 
+## Use the CLI
+
+Inspect the schema and exported variables before creating the resource:
+
+```sh
+brainpod describe resource mariadb --json
+brainpod --pod my-pod resource variables mariadb db
+```
+
+Open a temporary tunnel for the MariaDB client, DBeaver, or another local database tool:
+
+```sh
+brainpod --pod my-pod tunnel db 127.0.0.1:13306
+```
+
+Keep the command running and use the client command or connection string it prints. The API key requires `database:connect`; name resolution and credential retrieval also require `resources:read`. See [Database tunnels](../database-tunnels.md) for session and security behavior.
+
 ## Next Steps
 
 - [Apps](apps.md): Connect your app to a MariaDB

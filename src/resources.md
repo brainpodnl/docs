@@ -26,6 +26,18 @@ Resources are the building blocks of your infrastructure on Brainpod. They let y
 
 **Disks** give your apps persistent storage. Without a disk, data written inside an app is lost when it restarts. Mount a disk into an app and the data survives restarts, redeployments, and revisions. Databases like PostgresDB, MariaDB, and Valkey all require a disk to store their data.
 
+## Inspect resources with the CLI
+
+Use the CLI's version-matched schema catalog to discover supported fields and exported variables:
+
+```sh
+brainpod describe resource --json
+brainpod describe resource app --json
+brainpod --pod my-pod resource list
+```
+
+See [Brainpod CLI](cli.md) for creation, replacement, revision, and deployment commands.
+
 ## Working with Resources
 
 Resources are managed through revisions. When you create a new resource or modify an existing one, you're working in a draft revision. Make your changes, test your configuration, then deploy when ready.

@@ -41,6 +41,17 @@ One important constraint: **apps with disk mounts can only run a single instance
 
 You can increase a disk's size at any time by editing the resource and entering a larger value. Disks can only grow-shrinking is not supported. The new size takes effect when you deploy the revision.
 
+## Use the CLI
+
+Inspect the Disk schema and retrieve a disk from the current revision:
+
+```sh
+brainpod describe resource disk --json
+brainpod --pod my-pod resource get disk data
+```
+
+Use `brainpod resource replace disk data --file disk.json` to place a size change on the mutable head, then review the revision before deployment. A revision rollback does not reverse data already written to a disk.
+
 ## Next Steps
 
 - [Apps](apps.md): Mount a disk to your app

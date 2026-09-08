@@ -30,6 +30,17 @@ Your traffic is always encrypted. No manual certificate management, no worrying 
 
 You can create multiple routes for different purposes. One route for your production domain, another for staging. A route for your main application, separate routes for different services. Each route can point to different apps or use different routing rules.
 
+## Use the CLI
+
+Inspect the Route schema and retrieve a route from the current revision:
+
+```sh
+brainpod describe resource route --json
+brainpod --pod my-pod resource get route web
+```
+
+Route mutations change the mutable head. Run `brainpod deploy --wait` after reviewing the revision to make the route configuration active.
+
 ## Next Steps
 
 - [Custom Domains](../custom_domains.md): Use your own domain with your route

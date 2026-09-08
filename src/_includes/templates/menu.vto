@@ -7,29 +7,75 @@
     </span>
   </a>
 
-  {{ if alternates?.length > 1 }}
-    <ul class="menu-languages">
-      {{ for alt of alternates }}
-        <li>
-          <a
-            href="{{ alt.url }}"
-            {{ if alt.lang == lang }}aria-current="page"{{ /if }}
-            title="{{ alt.title |> escape }}"
-          >
-            {{ alt.lang |> langName }}
-          </a>
-        </li>
-      {{ /for }}
-    </ul>
-  {{ /if }}
+  <div class="menu">
+    <section class="menu-group">
+      <h2>Get started</h2>
+      <ul>
+        <li><a href="/" {{ if url === "/" }}aria-current="page"{{ /if }}>Overview</a></li>
+        <li><a href="/getting-started/" {{ if url === "/getting-started/" }}aria-current="page"{{ /if }}>Quickstart</a></li>
+        <li><a href="/onboarding/" {{ if url === "/onboarding/" }}aria-current="page"{{ /if }}>Onboarding</a></li>
+        <li><a href="/brainpod/" {{ if url === "/brainpod/" }}aria-current="page"{{ /if }}>Core concepts</a></li>
+      </ul>
+    </section>
 
-  <p class="menu-heading">Documentation</p>
-  {{ set menu = alternates?.length ? `/menu-${lang}.json` : "/menu.json" }}
-  <tree-menu
-    class="menu"
-    data-base='{{ "/" |> url }}'
-    data-url="{{ menu |> url }}"
-  ></tree-menu>
+    <section class="menu-group">
+      <h2>Deploy and operate</h2>
+      <ul>
+        <li><a href="/registry/" {{ if url === "/registry/" }}aria-current="page"{{ /if }}>Container registry</a></li>
+        <li><a href="/builds/" {{ if url === "/builds/" }}aria-current="page"{{ /if }}>Builds</a></li>
+        <li><a href="/custom_domains/" {{ if url === "/custom_domains/" }}aria-current="page"{{ /if }}>Custom domains</a></li>
+      </ul>
+    </section>
+
+    <section class="menu-group">
+      <details {{ if url.startsWith("/resources") }}open{{ /if }}>
+        <summary><a href="/resources/" {{ if url === "/resources/" }}aria-current="page"{{ /if }}>Resources</a></summary>
+        <ul>
+          <li><a href="/resources/apps/" {{ if url === "/resources/apps/" }}aria-current="page"{{ /if }}>Apps</a></li>
+          <li><a href="/resources/routes/" {{ if url === "/resources/routes/" }}aria-current="page"{{ /if }}>Routes</a></li>
+          <li><a href="/resources/disks/" {{ if url === "/resources/disks/" }}aria-current="page"{{ /if }}>Disks</a></li>
+          <li><a href="/resources/config/" {{ if url === "/resources/config/" }}aria-current="page"{{ /if }}>Config</a></li>
+          <li><a href="/resources/postgres/" {{ if url === "/resources/postgres/" }}aria-current="page"{{ /if }}>PostgresDB</a></li>
+          <li><a href="/resources/mariadb/" {{ if url === "/resources/mariadb/" }}aria-current="page"{{ /if }}>MariaDB</a></li>
+          <li><a href="/resources/valkey/" {{ if url === "/resources/valkey/" }}aria-current="page"{{ /if }}>Valkey</a></li>
+          <li><a href="/resources/mssql/" {{ if url === "/resources/mssql/" }}aria-current="page"{{ /if }}>SQL Server</a></li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="menu-group">
+      <details {{ if url.startsWith("/blueprints") }}open{{ /if }}>
+        <summary><a href="/blueprints/" {{ if url === "/blueprints/" }}aria-current="page"{{ /if }}>Blueprints</a></summary>
+        <ul>
+          <li><a href="/blueprints/wordpress/" {{ if url === "/blueprints/wordpress/" }}aria-current="page"{{ /if }}>WordPress</a></li>
+          <li><a href="/blueprints/pocketbase/" {{ if url === "/blueprints/pocketbase/" }}aria-current="page"{{ /if }}>PocketBase</a></li>
+          <li><a href="/blueprints/bifrost/" {{ if url === "/blueprints/bifrost/" }}aria-current="page"{{ /if }}>Bifrost</a></li>
+          <li><a href="/blueprints/ghost/" {{ if url === "/blueprints/ghost/" }}aria-current="page"{{ /if }}>Ghost</a></li>
+          <li><a href="/blueprints/forgejo/" {{ if url === "/blueprints/forgejo/" }}aria-current="page"{{ /if }}>Forgejo</a></li>
+          <li><a href="/blueprints/nextjs/" {{ if url === "/blueprints/nextjs/" }}aria-current="page"{{ /if }}>Next.js</a></li>
+          <li><a href="/blueprints/laravel/" {{ if url === "/blueprints/laravel/" }}aria-current="page"{{ /if }}>Laravel</a></li>
+          <li><a href="/blueprints/django/" {{ if url === "/blueprints/django/" }}aria-current="page"{{ /if }}>Django</a></li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="menu-group">
+      <h2>CLI and API</h2>
+      <ul>
+        <li><a href="/cli/" {{ if url === "/cli/" }}aria-current="page"{{ /if }}>Brainpod CLI</a></li>
+        <li><a href="/database-tunnels/" {{ if url === "/database-tunnels/" }}aria-current="page"{{ /if }}>Database tunnels</a></li>
+        <li><a href="/api-keys/" {{ if url === "/api-keys/" }}aria-current="page"{{ /if }}>API keys</a></li>
+        <li><a href="/api-reference/" {{ if url === "/api-reference/" }}aria-current="page"{{ /if }}>API reference</a></li>
+      </ul>
+    </section>
+
+    <section class="menu-group">
+      <h2>Background</h2>
+      <ul>
+        <li><a href="/background-information/" {{ if url === "/background-information/" }}aria-current="page"{{ /if }}>Cloud-native foundations</a></li>
+      </ul>
+    </section>
+  </div>
 
   <div class="menu-footer">
     <a href="https://console.brainpod.io">Open console <span aria-hidden="true">↗</span></a>

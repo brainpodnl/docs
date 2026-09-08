@@ -27,7 +27,7 @@ Output is written to `./_site`.
 - `src/`: Published documentation and site assets
 - `src/resources/`: Resource reference
 - `src/blueprints/`: Blueprint guides
-- `src/_includes/`: Theme template overrides
+- `src/_includes/`: Theme template overrides and categorized sidebar navigation
 - `src/llms.page.ts`: Generated `llms.txt` and `llms-full.txt` endpoints
 - `.pi/skills/update-docs/`: Documentation synchronization skill
 
@@ -46,7 +46,7 @@ metas:
 # Page Title
 ```
 
-Pages inside a subdirectory (for example, `resources/`) automatically appear nested under their parent in the sidebar.
+Add every published page to the appropriate group in `src/_includes/templates/menu.vto`. Resource and blueprint pages use collapsible groups in the sidebar.
 
 ## LLM-readable documentation
 

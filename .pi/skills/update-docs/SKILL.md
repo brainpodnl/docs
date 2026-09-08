@@ -101,6 +101,7 @@ After adding or renaming a page:
 
 - ensure it has one H1 and a concise `metas.description`;
 - ensure its source-relative links resolve correctly;
+- add it to the appropriate category in `src/_includes/templates/menu.vto`;
 - confirm that `sectionFor()` classifies any new top-level content appropriately;
 - exclude pages that should not enter the public LLM corpus.
 

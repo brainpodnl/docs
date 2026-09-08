@@ -42,7 +42,17 @@ DATABASE_URL=${db.uri}
 
 The connection string uses the `sqlserver://` scheme with encryption enabled.
 
-## Connect from your computer
+## Use the CLI
+
+Inspect the live MSSQL schema before preparing the resource document:
+
+```sh
+brainpod describe resource mssql --json
+```
+
+MSSQL may appear in the API schema before every resource-kind argument is available in the installed CLI. Use `brainpod describe resource --json` to verify the current command contract.
+
+### Connect from your computer
 
 Open a temporary local tunnel to a deployed SQL Server resource:
 

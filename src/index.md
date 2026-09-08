@@ -13,9 +13,23 @@ metas:
   <h1>Build and operate applications with confidence</h1>
   <p class="docs-lead">Practical guidance for deploying containerized workloads, configuring managed resources, and operating applications on Brainpod.</p>
   <div class="docs-actions">
+    <a href="/cli/">Start with the CLI</a>
     <a href="/getting-started/">Deploy your first application</a>
-    <a href="/brainpod/">Understand the platform</a>
   </div>
+</section>
+
+<section class="cli-quickstart">
+  <div>
+    <span class="docs-card-kicker">CLI quickstart</span>
+    <h2>From login to deployment</h2>
+    <p>Authenticate, select a pod, validate your resources, and deploy the mutable head.</p>
+    <a href="/cli/">Read the CLI guide →</a>
+  </div>
+  <pre><code class="language-sh">brainpod login
+brainpod config set pod &lt;pod-name&gt;
+brainpod resource create --file resources.json --dry-run
+brainpod resource create --file resources.json
+brainpod deploy --wait</code></pre>
 </section>
 
 ## Start with the right guide
