@@ -28,7 +28,7 @@ A resource is a declarative definition of infrastructure managed by Brainpod. Th
 - [Valkey](resources/valkey.md) for key-value storage
 - [SQL Server](resources/mssql.md) for Microsoft SQL Server Express
 
-Resources can reference one another. A Route targets an App, an App can mount a Disk or Config, and an App can reference variables exported by a database.
+Resources can reference one another. A Route targets an App, an App can mount a Disk or Config, and an App can reference variables exported by a database or another App with internal ports. See [Private networking](resources/apps.md#private-networking) for pod-scoped hostnames and App-to-App connections.
 
 ## Mutable head and revisions
 

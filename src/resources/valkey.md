@@ -11,7 +11,7 @@ A Valkey resource provisions a managed Valkey key-value store inside your pod. V
 
 ## How Valkey Works
 
-When you create a Valkey resource, Brainpod runs a Valkey instance inside your pod and exposes it at a stable hostname-the resource name you chose. The store is only accessible from within your pod; it is not reachable from the internet.
+When you create a Valkey resource, Brainpod runs a Valkey instance inside your pod and exposes it at a private hostname such as `cache.default.pod.internal`. The hostname resolves only inside the owning pod; it is not a public endpoint.
 
 Valkey stores its data on a Disk resource that you attach at creation time. This means the data survives restarts using append-only file persistence. The Disk is managed separately and persists even if you delete the Valkey resource.
 
@@ -34,7 +34,7 @@ Apps connect to Valkey using environment variables. When you reference a Valkey 
 
 | Variable | Description |
 |---|---|
-| `${name.host}` | Hostname of the Valkey instance |
+| `${name.host}` | Pod-scoped hostname (`<name>.default.pod.internal`) |
 | `${name.port}` | Port (`6379`) |
 | `${name.password}` | Generated password (injected securely) |
 | `${name.uri}` | Full connection string |
@@ -42,13 +42,15 @@ Apps connect to Valkey using environment variables. When you reference a Valkey 
 Replace `name` with the name of your Valkey resource. The connection string uses the `rediss://` scheme (Redis over TLS):
 
 ```
-rediss://:<password>@<name>:6379
+rediss://:<password>@<name>.default.pod.internal:6379
 ```
 
 In your app's environment variable configuration, you would set it up like this:
 
 - **Name**: `REDIS_URL`
 - **Value**: `${cache.uri}` (where `cache` is your Valkey resource name)
+
+Resource details show the hostname as **Internal DNS**. Prefer `${cache.host}` or `${cache.uri}` over hardcoding it. See [Private networking](apps.md#private-networking) for DNS scope and redeployment requirements; use a database tunnel for access from your computer.
 
 ## Use the CLI
 

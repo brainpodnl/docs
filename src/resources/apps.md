@@ -2,7 +2,7 @@
 order: 1
 hide_menu: false
 metas:
-  description: "Learn about Brainpod Apps: deploy containerized applications, configure instance types, environment variables, replicas, and private registry images."
+  description: "Deploy Brainpod Apps with private TCP ports, pod-scoped DNS, startup command overrides, environment variables, and persistent mounts."
   keywords: ["Brainpod app", "container deployment", "environment variables", "instance type", "scaling", "Docker container"]
 ---
 # Apps
@@ -30,7 +30,49 @@ When you deploy an app revision, we start your instances with the container imag
 
 ## Advanced Configuration
 
-The **Advanced** tab in the app editor exposes additional settings for lifecycle, runtime identity, readiness checks, and mounts.
+Expand **Advanced settings** in the app editor to configure startup commands, internal ports, lifecycle, runtime identity, readiness checks, and mounts. Opening one section closes the previous section without clearing its fields.
+
+### Startup command
+
+Use **Startup command** to override how your container starts:
+
+- **Command (entrypoint)** replaces the image entrypoint. The first item must be a non-empty executable.
+- **Arguments** supplies the arguments passed to the entrypoint. Arguments alone retain the image entrypoint. An overridden command without arguments runs without the image's default arguments.
+- **Use image defaults** clears both overrides. Save and deploy the revision to apply the reset.
+
+Each row is one token. Spaces and empty arguments are preserved; Brainpod does not split a command string or interpret shell syntax. To run a shell script, the image must contain a shell. Set the command items to `/bin/sh` and `-c`, then put the entire script in one argument.
+
+In a resource document, the overrides are optional string arrays in `spec`. For example:
+
+```json
+{
+  "command": ["/bin/sh", "-c"],
+  "args": ["exec /app/server --config /etc/app/config.yaml"]
+}
+```
+
+When both arrays are omitted or empty, the image's startup defaults apply. Editing other fields in the console preserves existing overrides. A REST resource replacement replaces the full document, so include any overrides you want to keep.
+
+### Private networking
+
+Expose TCP ports so other Apps in the same pod can reach your application without a public Route:
+
+1. Ensure the application listens on the intended port on all container interfaces, rather than only `localhost`.
+2. Open **Advanced settings → Internal ports** and add the port numbers.
+3. Save the App and deploy the revision.
+4. In another App's environment variables, reference the host and specify the port, for example `BACKEND_URL=http://${api.host}:8080` for an App named `api`.
+
+Ports must be unique integers from `1` to `65535`. In resource JSON, use a flat array such as `"ports": [8080, 9000]` in `spec`; ports do not have user-defined names.
+
+When you select an image with no ports configured, the console prefills its detected TCP ports. Review these values: they configure networking but do not change which ports the application listens on. Editing an existing App does not automatically add ports. Removing the last port removes its internal service on the next deployment.
+
+An App with declared ports exports `${api.host}` as `api.default.pod.internal`. The same hostname appears as **Internal DNS** in resource details. Use the variable instead of hardcoding it. An App without declared ports has no host export.
+
+Connections are balanced across ready App instances. Internal ports do not publish an internet endpoint; configure a [Route](routes.md) separately for public HTTP access. A Route can target an App port even when it is not declared in `spec.ports`.
+
+The `default` part is the resource namespace, not the pod name. Private hostnames resolve only from workloads in their owning Brainpod pod. Identical resource names in different pods remain isolated. These names cannot be used directly from your computer or another pod.
+
+Managed Postgres, MariaDB, Valkey, and SQL Server resources use the same private hostname format. Prefer their `${name.uri}` variables for complete connection strings. External DNS names continue to resolve normally. Redeploy existing workloads when adopting the new internal DNS configuration.
 
 ### Init Script
 
