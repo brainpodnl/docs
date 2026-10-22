@@ -6,7 +6,7 @@ metas:
 ---
 # Routes
 
-A route makes your app accessible on the internet. Without a route, your app runs but has no external connectivity. With a route, you get a hostname, traffic routing, and automatic TLS.
+A route makes your app accessible on the internet. Without a route, your app has no public HTTP endpoint, but can expose [internal TCP ports](apps.md#private-networking) to other Apps in the same pod. With a route, you get a hostname, traffic routing, and automatic TLS. Route target ports do not need to be declared as internal App ports.
 
 ## How Routes Work
 

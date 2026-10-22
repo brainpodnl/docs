@@ -27,7 +27,7 @@ Replace `name` with the MSSQL resource name:
 
 | Variable | Description |
 |---|---|
-| `${name.host}` | Cluster-internal hostname |
+| `${name.host}` | Pod-scoped hostname (`<name>.default.pod.internal`) |
 | `${name.port}` | SQL Server port (`1433`) |
 | `${name.user}` | Database user (`brainpod`) |
 | `${name.database}` | Database name (`brainpod`) |
@@ -41,6 +41,8 @@ DATABASE_URL=${db.uri}
 ```
 
 The connection string uses the `sqlserver://` scheme with encryption enabled.
+
+Resource details show the hostname as **Internal DNS**. Prefer `${db.host}` or `${db.uri}` over hardcoding it. The hostname resolves only inside its owning pod. See [Private networking](apps.md#private-networking) for DNS scope and redeployment requirements; use a database tunnel for access from your computer.
 
 ## Use the CLI
 

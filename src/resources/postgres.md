@@ -11,7 +11,7 @@ A PostgresDB resource provisions a managed PostgreSQL database inside your pod. 
 
 ## How PostgresDB Works
 
-When you create a PostgresDB, Brainpod runs a PostgreSQL instance inside your pod and exposes it at a stable hostname-the resource name you chose. The database is only accessible from within your pod; it is not reachable from the internet.
+When you create a PostgresDB, Brainpod runs a PostgreSQL instance inside your pod and exposes it at a private hostname such as `db.default.pod.internal`. The hostname resolves only inside the owning pod; it is not a public endpoint.
 
 Your data is stored on a Disk resource that you attach at creation time. This means the data survives restarts, redeployments, and revision changes. The Disk is managed separately and persists even if you delete the PostgresDB resource.
 
@@ -34,7 +34,7 @@ Apps connect to PostgresDB using environment variables. When you reference a Pos
 
 | Variable | Description |
 |---|---|
-| `${name.host}` | Hostname of the database |
+| `${name.host}` | Pod-scoped hostname (`<name>.default.pod.internal`) |
 | `${name.port}` | Port (`5432`) |
 | `${name.user}` | Database user (`brainpod`) |
 | `${name.database}` | Database name (`brainpod`) |
@@ -44,13 +44,15 @@ Apps connect to PostgresDB using environment variables. When you reference a Pos
 Replace `name` with the name of your PostgresDB resource. The connection string uses the `postgres://` scheme with TLS required:
 
 ```
-postgres://brainpod:<password>@<name>:5432/brainpod?sslmode=require
+postgres://brainpod:<password>@<name>.default.pod.internal:5432/brainpod?sslmode=require
 ```
 
 In your app's environment variable configuration, you would set it up like this:
 
 - **Name**: `DATABASE_URL`
 - **Value**: `${db.uri}` (where `db` is your PostgresDB resource name)
+
+Resource details show the hostname as **Internal DNS**. Prefer `${db.host}` or `${db.uri}` over hardcoding it. See [Private networking](apps.md#private-networking) for DNS scope and redeployment requirements; use a database tunnel for access from your computer.
 
 ## Use the CLI
 
