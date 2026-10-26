@@ -93,6 +93,21 @@ The API deploys only when the supplied ID still identifies the current draft hea
 
 This guards the revision ID, not the contents of a mutable draft. Edits to the same draft can retain its ID, so coordinate concurrent editors when the exact reviewed content must remain unchanged.
 
+### Discard the current draft
+
+Delete the exact current draft revision to restore its parent as the mutable head:
+
+```sh
+curl --fail-with-body \
+  --request DELETE \
+  --header "Authorization: Bearer $BRAINPOD_API_TOKEN" \
+  https://api.brainpod.io/v1/pods/my-pod/revisions/00000000-0000-4000-8000-000000000001
+```
+
+Replace the pod name and UUID with the current draft head. The API key needs `resources:write`.
+
+The request fails with HTTP `412` when the UUID is stale, the revision is not the current draft head, or the draft has no parent. Read the pod again and review the current head before retrying. A successful discard changes the mutable head to the draft's parent and leaves the deployed revision and running resources unchanged.
+
 ## Resource schemas and variables
 
 `ResourceInput` in the OpenAPI components contains the supported resource documents. The live contract currently includes:

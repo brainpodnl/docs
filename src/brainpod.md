@@ -69,6 +69,18 @@ brainpod deploy --summary "Deploy application" --wait
 
 See [Brainpod CLI](cli.md) for revision inspection and machine-readable output.
 
+## Discard a draft
+
+Discard the current draft when you want to abandon all pending resource changes and return the mutable head to its parent revision:
+
+1. Open the pod and review the draft changes.
+2. Open the deploy panel.
+3. Select **Discard draft** and confirm the action.
+
+Discarding affects only the exact current draft head. It does not redeploy or change running resources. The draft must have a parent, so the initial empty draft of a new pod cannot be discarded.
+
+If individual edits return the resource graph to the parent configuration, Brainpod removes the unchanged draft automatically. This includes reverting the last create, update, or delete. The parent becomes the mutable head again without a deployment.
+
 ## Restore an earlier configuration
 
 Revision history provides the resource configuration for earlier deployments. Restoring an earlier revision creates a deployment from that known configuration; it does not require manually reversing every individual field change.
