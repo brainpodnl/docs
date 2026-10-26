@@ -2,8 +2,8 @@
 order: 4
 hide_menu: false
 metas:
-  description: "Compare Brainpod blueprints for WordPress, PocketBase, Bifrost, Ghost, Forgejo, Next.js, Laravel, and Django deployments."
-  keywords: ["Brainpod blueprints", "WordPress", "PocketBase", "Bifrost", "Ghost", "Forgejo", "Next.js", "Laravel", "Django"]
+  description: "Compare Brainpod blueprints for WordPress, PocketBase, Bifrost, Ghost, Forgejo, ResourceSpace, Lightdash, Next.js, Laravel, and Django deployments."
+  keywords: ["Brainpod blueprints", "WordPress", "PocketBase", "Bifrost", "Ghost", "Forgejo", "ResourceSpace", "Lightdash", "Next.js", "Laravel", "Django"]
 ---
 # Blueprints
 
@@ -16,6 +16,8 @@ Blueprints install a predefined set of resources on a pod's mutable head. You ca
 - **[Bifrost](blueprints/bifrost.md)**: AI gateway with PostgreSQL and mounted configuration
 - **[Ghost](blueprints/ghost.md)**: Publishing platform with MariaDB and persistent content storage
 - **[Forgejo](blueprints/forgejo.md)**: Git forge with PostgreSQL and repository storage
+- **[ResourceSpace](blueprints/resourcespace.md)**: Digital asset management with MariaDB and persistent media storage
+- **[Lightdash](blueprints/lightdash.md)**: Business intelligence with PostgreSQL and external S3-compatible storage
 
 ## Frameworks
 
