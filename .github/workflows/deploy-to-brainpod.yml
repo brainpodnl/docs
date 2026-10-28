@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, nix]
+    runs-on: ubuntu-latest
     environment: brainpod-grapes-cross
     permissions:
       contents: read
