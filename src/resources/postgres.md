@@ -28,6 +28,14 @@ PostgresDB has four fields:
 
 The instance size can be changed later if you need to scale up. The version and disk reference are immutable.
 
+## Maintenance updates
+
+The PostgreSQL **Version** field selects a major version. Brainpod can update the approved maintenance image within that major version to deliver fixes and supported extensions.
+
+When you deploy a newly prepared pod revision, Brainpod resolves the current approved PostgreSQL image for every PostgresDB in that revision, even when your draft changed only another resource. Applying that revision restarts the single database replica with a recreate strategy while retaining its Disk. Expect a short database interruption and transient connection failures during the restart.
+
+A platform release does not rewrite or restart an already deployed revision. Reconciliation also continues to use the image stored for that revision. Brainpod does not take an automatic backup before a maintenance-image update, so create and verify a backup before deploying when your recovery requirements call for one.
+
 ## Connecting to PostgresDB
 
 Apps connect to PostgresDB using environment variables. When you reference a PostgresDB resource in an app's environment, Brainpod automatically makes the following variables available:
