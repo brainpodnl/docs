@@ -18,6 +18,10 @@ Every route needs at least one routing rule. The most common pattern is routing 
 
 When you create a route, you get a unique hostname under `*.route.brainpod.io`. This is immediately available (no DNS configuration, no waiting). The hostname is yours as long as the route exists.
 
+Brainpod assigns this hostname during Route creation. Omit `spec.hostname` from REST API create requests and read the assigned value from the created resource. The hostname is immutable: a full resource replacement must retain the stored value, while custom hostnames belong in `spec.domains`.
+
+A blueprint preview can show an ephemeral generated hostname. Installing the blueprint creates the resources and assigns a fresh hostname, so do not use the preview value in DNS or external configuration.
+
 Want to use your own domain? Add a custom domain to your route. Point your DNS records to us, and we handle the rest. Custom domains work exactly like the default hostnames, with the same automatic TLS and routing capabilities.
 
 ## Automatic TLS
