@@ -94,6 +94,8 @@ All three fields are optional. Brainpod uses runtime metadata detected from the 
 
 A readiness check tells Brainpod when your app is ready to receive traffic. Until the check passes, the app is not considered ready and traffic is not routed to it. Brainpod checks every 5 seconds starting 5 seconds after the app starts.
 
+Apps with a Disk mount are stateful, single-instance workloads. Brainpod deploys them with a recreate strategy and does not run the configured readiness check. The check remains part of the resource document, but Kubernetes readiness does not use it while a Disk is mounted. Apps with only Config or Secret mounts keep normal rolling updates and readiness behavior.
+
 The check has the following fields:
 
 - **Command**: A command that must complete successfully.
@@ -105,7 +107,7 @@ The check has the following fields:
 
 Mounts attach external storage or configuration files into your app at a specified path. Two types are supported:
 
-- **Disk mount**: attach a [Disk](disks.md) resource to a path (e.g. `/data`). The data persists across restarts. Apps with a disk mount can only run a single instance.
+- **Disk mount**: attach a [Disk](disks.md) resource to a path (e.g. `/data`). The data persists across restarts. Apps with a disk mount can only run a single instance and use recreate deployment without a readiness probe.
 - **Config mount**: attach a specific file from a [Config](config.md) resource to a path (e.g. `/etc/app/config.yaml`). The file is read-only.
 
 You can add multiple mounts to a single app.

@@ -85,6 +85,7 @@ The namespace is currently fixed to `default`.
 - MariaDB
 - Valkey
 - Disk
+- Bucket
 - MSSQL
 
 Resource schemas include `x-brainpod-variables`, which describes references such as `${db.uri}` that can be used in App environment variables. Secret variables are identified as secret and their values are not returned by the variables API.
