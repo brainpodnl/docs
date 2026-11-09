@@ -56,6 +56,7 @@ Use environment variables or your secret manager instead of writing a key direct
 | **Revisions** | List revisions, inspect content, and compare changes |
 | **Deployments** | Deploy the mutable head or redeploy the current revision |
 | **Resources** | Validate, create, replace, delete, resolve, and list resources |
+| **Secrets** | Create, rotate, list metadata for, and delete write-only pod secrets |
 | **Variables** | List references exported by resources |
 | **Events** | Query or stream application, HTTP access, and platform events |
 | **Images** | List and inspect public or pod-scoped container images |
@@ -109,4 +110,5 @@ Use the HTTP status for the broad error class and the stable code for specific r
 - [API keys](api-keys.md): Define least-privilege policies
 - [Brainpod CLI](cli.md): Use a version-matched command contract
 - [Resources](resources.md): Understand available resource types
+- [Pod secrets](secrets.md): Store and rotate write-only sensitive values
 - [Database tunnels](database-tunnels.md): Connect local database tools
