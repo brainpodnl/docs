@@ -74,6 +74,25 @@ A typical workflow is:
 
 The namespace is currently fixed to `default`.
 
+### Deploy the reviewed draft
+
+Pass the UUID of the draft you reviewed as `revisionId` to prevent deploying a different head revision:
+
+```sh
+curl --fail-with-body \
+  --request POST \
+  --header "Authorization: Bearer $BRAINPOD_API_TOKEN" \
+  --header "Content-Type: application/json" \
+  --data '{"revisionId":"00000000-0000-4000-8000-000000000001","summary":"Deploy reviewed draft"}' \
+  https://api.brainpod.io/v1/pods/my-pod/deploy
+```
+
+Replace `my-pod` and the example UUID with your pod name and the revision ID returned by your resource mutation or revision inspection. The API key needs `revisions:deploy`.
+
+The API deploys only when the supplied ID still identifies the current draft head. If it differs, or the head is no longer a draft, the request fails with HTTP `412` (`PRECONDITION_FAILED`). Read the current head, review its content and diff, then submit its ID if you intend to deploy it. Omitting `revisionId` deploys the current draft head without checking its ID against the one you reviewed; it does not select a historical revision.
+
+This guards the revision ID, not the contents of a mutable draft. Edits to the same draft can retain its ID, so coordinate concurrent editors when the exact reviewed content must remain unchanged.
+
 ## Resource schemas and variables
 
 `ResourceInput` in the OpenAPI components contains the supported resource documents. The live contract currently includes:
