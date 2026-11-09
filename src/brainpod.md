@@ -69,11 +69,18 @@ brainpod deploy --summary "Deploy application" --wait
 
 See [Brainpod CLI](cli.md) for revision inspection and machine-readable output.
 
-## Restore an earlier configuration
+## Roll back to an earlier revision
 
-Revision history provides the resource configuration for earlier deployments. Restoring an earlier revision creates a deployment from that known configuration; it does not require manually reversing every individual field change.
+Revision history provides the resource configuration for earlier deployments. Open the pod's revision history, inspect the earlier revision and its diff, and select the rollback action beside that revision.
 
-Before restoring production infrastructure, inspect the revision diff and consider the effect on persistent data. Restoring resource definitions does not necessarily reverse changes already written to a Disk or database.
+Choose one of two outcomes:
+
+- **Save as draft** clones the selected revision onto the mutable head. Review or adjust it, then deploy later.
+- **Deploy now** clones the selected revision and immediately starts its deployment.
+
+The selected historical revision stays immutable. Brainpod creates a new revision from its resource definitions, so the rollback also appears in history and can be reviewed like any other change.
+
+Before rolling back production infrastructure, consider the effect on persistent data. A rollback restores resource definitions; it does not undo data already written to a Disk, database, or Bucket. Check image compatibility, database versions, and referenced resources before deploying an old configuration.
 
 ## Next steps
 
