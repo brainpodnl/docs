@@ -34,7 +34,7 @@ To use a Config file in an app, add a mount to your app configuration. A mount h
 
 You can add multiple mounts to a single app, pulling different files from the same Config or from different Configs entirely.
 
-Config is designed for non-sensitive configuration. For passwords, API keys, and other secrets, use environment variables on the app instead.
+Config is designed for non-sensitive configuration. For passwords, API keys, and other secrets, create a [Pod secret](../secrets.md) and reference it from the App environment.
 
 ## Use the CLI
 
@@ -55,5 +55,6 @@ brainpod --pod my-pod deploy --wait
 ## Next Steps
 
 - [Apps](apps.md): Mount a Config into your app
+- [Pod secrets](../secrets.md): Store and rotate sensitive values
 - [Disks](disks.md): Persistent storage for your apps
 - [Resources](../resources.md): Overview of Brainpod resources
