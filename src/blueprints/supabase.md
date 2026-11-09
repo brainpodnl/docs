@@ -49,6 +49,5 @@ Email autoconfirmation is enabled because the blueprint does not provision an SM
 ## Next steps
 
 - [PostgresDB](../resources/postgres.md): Review the managed database
-- [Database backups](../database-backups.md): Configure a fresh database backup
 - [Custom domains](../custom_domains.md): Attach a domain to the Supabase Route
 - [Brainpod resources](../resources.md): Review the generated resource graph
