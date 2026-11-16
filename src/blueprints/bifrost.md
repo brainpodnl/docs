@@ -18,7 +18,7 @@ Choose an administrator username and a password of at least eight characters. St
 - One Disk for PostgreSQL data
 - One PostgreSQL 16 database
 - One Config containing Bifrost configuration
-- One App running Bifrost `1.6.5` on port `8080`
+- One App running Bifrost `2.5.1` on port `8080`
 - One Route with a 300-second request timeout
 
 The Config is mounted into the App. Database references and administrator credentials are injected through environment variables.
