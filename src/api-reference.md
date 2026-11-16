@@ -56,6 +56,7 @@ Use environment variables or your secret manager instead of writing a key direct
 | **Revisions** | List revisions, inspect content, and compare changes |
 | **Deployments** | Deploy the mutable head or redeploy the current revision |
 | **Resources** | Validate, create, replace, delete, resolve, and list resources |
+| **Secrets** | Create, version, list, and remove write-only Secret resources in the pod draft |
 | **Variables** | List references exported by resources |
 | **Events** | Query or stream application, HTTP access, and platform events |
 | **Images** | List and inspect public or pod-scoped container images |
@@ -86,8 +87,9 @@ The namespace is currently fixed to `default`.
 - Valkey
 - Disk
 - MSSQL
+- Secret
 
-Resource schemas include `x-brainpod-variables`, which describes references such as `${db.uri}` that can be used in App environment variables. Secret variables are identified as secret and their values are not returned by the variables API.
+Resource schemas include `x-brainpod-variables`, which describes references such as `${db.uri}` that can be used in App environment variables. Secret values are write-only. App documents contain references such as `${secret.payment-token}` while each revision pins the value version it deploys.
 
 ## Errors
 
@@ -109,4 +111,5 @@ Use the HTTP status for the broad error class and the stable code for specific r
 - [API keys](api-keys.md): Define least-privilege policies
 - [Brainpod CLI](cli.md): Use a version-matched command contract
 - [Resources](resources.md): Understand available resource types
+- [Secret resources](secrets.md): Store, rotate, and deploy write-only sensitive values
 - [Database tunnels](database-tunnels.md): Connect local database tools
