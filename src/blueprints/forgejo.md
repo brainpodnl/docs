@@ -14,7 +14,7 @@ The Forgejo blueprint deploys a self-hosted Git forge with PostgreSQL and persis
 - One Disk for PostgreSQL data
 - One Disk for repositories and attachments
 - One PostgreSQL 16 database
-- One App running Forgejo `15.0.3` on port `3000`
+- One App running rootless Forgejo `17.0.1` on port `3000`
 - One Route targeting the App
 
 The App receives its database configuration from PostgreSQL resource variables and includes an HTTP readiness check.
