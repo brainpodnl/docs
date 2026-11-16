@@ -15,8 +15,8 @@ The blueprint creates:
 
 - one PostgresDB 16 resource with a persistent Disk;
 - one Bucket for Supabase object storage;
-- one stateless App for Auth, REST, Storage, Realtime, and Edge Functions;
-- one Studio App with a 5 GB Disk for saved snippets;
+- one stateless App running the Supabase `2026.11.05` bundle for Auth, REST, Storage, Realtime, and Edge Functions;
+- one Studio App running the same bundle with a 5 GB Disk for saved snippets;
 - one Route for the API paths and Studio.
 
 The Route sends `/auth/v1`, `/rest/v1`, `/storage/v1`, and `/functions/v1` to their service ports. It sends `/realtime/v1` to Realtime with the hostname and path rewrite that service expects. The root path opens Studio.
