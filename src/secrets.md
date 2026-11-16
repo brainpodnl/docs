@@ -2,20 +2,60 @@
 order: 6
 hide_menu: false
 metas:
-  description: "Create, reference, rotate, and redeploy write-only Brainpod Pod secrets without storing sensitive values in resource JSON."
-  keywords: ["Brainpod secrets", "Pod secrets", "secret rotation", "runtime secrets", "environment variables"]
+  description: "Create, reference, rotate, deploy, and roll back write-only Brainpod Secret resources without storing sensitive values in App resource JSON."
+  keywords: ["Brainpod secrets", "Secret resources", "secret rotation", "runtime secrets", "environment variables"]
 ---
-# Pod secrets
+# Secret resources
 
-Pod secrets store passwords, tokens, and keys separately from resource documents. Values are write-only: Brainpod never shows them again after creation and API responses contain metadata only.
+A Secret resource stores the identity of a password, token, or key in a pod revision. Its value remains write-only and outside the resource document. Every revision pins the exact value version it uses, so deploying, discarding, reverting, and rolling back secrets follows the same revision workflow as other resources.
 
-## Create a secret
+## Store an App variable as a secret
 
-Open the pod's **Secrets** page and select **Create secret**. Give the secret a name and either enter a value or ask Brainpod to generate one.
+In the console:
 
-Generated values can use the alphanumeric, hexadecimal, base64url, or printable character sets. The generated value is also write-only, so reference it from workloads instead of expecting to copy it later.
+1. Open the App on the pod canvas.
+2. Add or edit an environment variable.
+3. Enter its key and, for a typed secret, its initial value.
+4. Select the open-lock action **Store as secret** beside the value.
+5. Choose a typed or generated value and select **Save secret**.
+6. Save the App, review the Secret change in the Deploy panel, and deploy the draft.
 
-To create a value through the REST API:
+Brainpod adds a Secret resource to the draft and replaces the App value with a reference such as:
+
+```text
+${secret.payment-token}
+```
+
+Generated values are created server-side and never reach the browser. Typed values cannot be viewed again after saving.
+
+On the canvas, referenced Secrets appear as chips on their Apps. Unused Secret resources appear together in a **Secrets** node.
+
+## Share and replace a value
+
+Multiple Apps or variables can reference the same Secret. Open a secret-backed environment value to see:
+
+- the Secret name and current draft version;
+- whether that version has been deployed;
+- other Apps that use the Secret.
+
+Select **Replace value** to write a new version into the draft. Every reference to that Secret uses the new version when you deploy the draft. Running Apps continue using the version pinned by the deployed revision until that deployment succeeds.
+
+Select **Use a plain value** to unlink one environment variable. The Secret remains in the draft for other references; remove its resource from the canvas when nothing should use it.
+
+## Revision behavior
+
+Secret changes are ordinary draft changes:
+
+- deploying pins the draft's Secret versions and restarts affected workloads;
+- discarding the draft drops Secret resources and value changes made only in that draft;
+- reverting a Secret change restores the parent draft's pinned version;
+- rolling back creates a revision with the Secret versions that historical revision used.
+
+A Secret with no value cannot be deployed by an App that references it. Use **Set secret value** before deploying.
+
+## Use the REST API
+
+Create a Secret resource and its value in the pod's draft:
 
 ```sh
 curl --fail-with-body \
@@ -26,48 +66,28 @@ curl --fail-with-body \
   https://api.brainpod.io/v1/pods/my-pod/secrets
 ```
 
-The key needs `resources:write` for the pod. Values must be non-empty, at most 32 KiB, and cannot contain a single quote, a NUL character, or a carriage return.
+The key needs `resources:write` for the current draft. The request creates a draft when needed. Values must be non-empty, at most 32 KiB, and cannot contain a single quote, NUL character, or carriage return.
 
-## Reference a secret from an App
+Use `PUT /v1/pods/{pod}/secrets/{name}` to pin a new value version in the draft. Use `DELETE /v1/pods/{pod}/secrets/{name}` to remove the Secret resource from the draft. Review and deploy the draft through the normal revision endpoint; there is no separate secret redeploy action.
 
-Use this value in an App environment variable:
+Concurrent writes can return `412 DRAFT_CHANGED` when the targeted draft was deployed or replaced. Read the current head and retry against that draft.
 
-```text
-${secret.payment-token}
-```
+## Remove a Secret
 
-The reference is stored in the resource document; the value is not. When Brainpod renders the revision, it pins the current secret version. At startup, the workload receives that pinned value through in-memory runtime delivery.
+Remove every current-draft reference before deleting the Secret resource. A draft that still contains `${secret.<name>}` fails to render without that Secret.
 
-A deployed revision continues using the pinned version even after you overwrite or delete the secret.
-
-## Rotate a secret
-
-Select **Overwrite** beside the secret to create a new version. Existing running Apps keep their deployed version until you:
-
-- deploy another revision that references the secret; or
-- select **Redeploy with current secrets** on the Secrets page.
-
-The redeploy action creates a revision using the current versions and restarts Apps whose secret versions changed. Review the version and **Used by** columns before redeploying.
-
-Through the REST API, replace a value with `PUT /v1/pods/{pod}/secrets/{name}`, then deploy or call `POST /v1/pods/{pod}/redeploy-secrets`.
-
-## Delete a secret
-
-Deleting a secret makes its name immediately reusable. Deployed revisions keep access to the versions they already pin, but a new render that still contains `${secret.<name>}` fails.
-
-Remove or replace every reference on the mutable head before deleting a secret that future deployments still need.
+Earlier revisions retain the value versions they pin. Deleting a Secret from the current draft therefore does not change an already deployed or historical revision.
 
 ## Security behavior
 
-- Values are never returned by list or detail APIs.
-- Secret values are not stored in App resource JSON or Kubernetes Secrets.
-- Each rendered revision pins exact secret versions for repeatable deployment.
-- The workload receives values at startup through an in-memory volume.
-- Anyone who can change resources and secret values can affect the next deployment; grant `resources:write` narrowly.
+- List and detail APIs return metadata and version numbers, never values.
+- Secret values do not appear in App resource JSON or Kubernetes Secrets.
+- Workloads receive pinned values at startup through in-memory runtime delivery.
+- Anyone who can change resources and Secret values can affect the next deployment; grant `resources:write` narrowly.
 
 ## Next steps
 
-- [Apps](resources/apps.md): Reference secrets in environment variables
+- [Apps](resources/apps.md): Store environment values as Secrets
 - [Config](resources/config.md): Store non-sensitive files
-- [API keys](api-keys.md): Limit secret write access
+- [API keys](api-keys.md): Limit Secret write access
 - [API reference](api-reference.md): Authenticate REST requests
