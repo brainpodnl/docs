@@ -54,6 +54,10 @@ In your app's environment variable configuration, you would set it up like this:
 
 Resource details show the hostname as **Internal DNS**. Prefer `${db.host}` or `${db.uri}` over hardcoding it. See [Private networking](apps.md#private-networking) for DNS scope and redeployment requirements; use a database tunnel for access from your computer.
 
+## Back up and restore
+
+Use the resource's **Backups** tab to select or create Pod-scoped Bucket storage, deploy that storage choice, run an on-demand backup, and review restore history. See [Database backups](../database-backups.md) for the complete workflow and restore warnings.
+
 ## Use the CLI
 
 Inspect the schema and exported variables before creating the resource:
@@ -76,5 +80,6 @@ Keep the command running and use the client command or connection string it prin
 - [Apps](apps.md): Connect your app to a MariaDB
 - [Disks](disks.md): Create a disk for your database to use
 - [PostgresDB](postgres.md): PostgreSQL alternative
+- [Database backups](../database-backups.md): Configure storage, back up, and restore
 - [Database tunnels](../database-tunnels.md): Connect a local MariaDB client
 - [Resources](../resources.md): Overview of Brainpod resources
