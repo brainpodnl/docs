@@ -16,7 +16,7 @@ The blueprint creates:
 - **1 Disk**: 5 GB for PostgreSQL data;
 - **1 Postgres**: a managed PostgreSQL 16 database for Lightdash metadata;
 - **1 Bucket**: private S3-compatible storage for assets, results, and exports;
-- **1 App**: Lightdash 2.588.0 on a `1x` instance;
+- **1 App**: Lightdash 3.206.0 on a `1x` instance;
 - **1 Route**: a public HTTPS hostname for Lightdash.
 
 Brainpod creates a Pod-owned Bucket for uploaded assets, query results, and exports. The database connection, public URL, and storage credentials are configured automatically.
