@@ -14,7 +14,7 @@ The Ghost blueprint deploys the Ghost publishing platform with persistent applic
 - One Disk for MariaDB data
 - One Disk for Ghost content, themes, and uploads
 - One MariaDB 11 database
-- One App running Ghost `5.130.6` on port `2368`
+- One App running Ghost `6.75.0` on port `2368`
 - One Route targeting the App
 
 Database connection details are injected from the MariaDB resource. The Ghost content disk is mounted at the path expected by the container image.
