@@ -22,13 +22,13 @@ Apps need a few key pieces of information:
 - **Name**: A unique identifier within your pod. Use descriptive names like `web`, `api`, or `worker`.
 - **Instance Type**: Determines CPU and memory for your containers. Choose based on your workload: small for lightweight services, larger for compute-intensive applications.
 - **Image**: Your container image, either from a public registry (like `nginx:latest`) or our private registry at `registry.brainpod.io`. The private registry is pod-scoped, keeping your images secure.
-- **Environment Variables**: Configuration passed to your container at runtime. Use ordinary values for non-sensitive settings and resource references for connected services. Store passwords, tokens, and API keys as [Pod secrets](../secrets.md) and reference them as `${secret.<name>}`.
+- **Environment Variables**: Configuration passed to your container at runtime. Use ordinary values for non-sensitive settings and resource references for connected services. Store passwords, tokens, and API keys as [Secret resources](../secrets.md) and reference them as `${secret.<name>}`.
 
-## Use Pod secrets
+## Use Secret resources
 
-Create sensitive values under **Secrets** in the pod and reference them from App environment variables as `${secret.<name>}`. Brainpod pins the current secret version when it renders a revision and delivers the value to the workload at startup without returning it through the resource API.
+In the App environment editor, enter the variable key and select **Store as secret** beside its value. Save a typed or server-generated value. Brainpod adds a Secret resource to the draft and stores a reference such as `${secret.<name>}` in the App.
 
-Overwriting a secret creates a new version. Deploy a new revision, or choose **Redeploy with current secrets**, before running Apps use that version. See [Pod secrets](../secrets.md) for creation, rotation, and deletion behavior.
+Open a secret-backed value to inspect its version and other users, replace its value, or switch that variable back to a plain value. Deploy the draft to roll the pinned Secret version out to running Apps. Discarding or reverting the draft also discards or reverts its Secret change. See [Secret resources](../secrets.md) for the complete workflow.
 
 ## What Happens When You Deploy
 
@@ -133,6 +133,6 @@ Use `brainpod resource create --file resources.json --dry-run` to validate an Ap
 - [Routes](routes.md): Make your app accessible on the internet
 - [Disks](disks.md): Add persistent storage to your app
 - [Config](config.md): Mount configuration files into your app
-- [Pod secrets](../secrets.md): Inject write-only sensitive values
+- [Secret resources](../secrets.md): Inject write-only sensitive values
 - [Container Registry](../registry.md): Push private images to Brainpod
 - [Resources](../resources.md): Overview of Brainpod resources
