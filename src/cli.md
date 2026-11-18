@@ -85,9 +85,23 @@ brainpod resource create --file resources.json
 brainpod deploy --summary "Deploy API" --wait
 ```
 
-Use `--dry-run` before creation to validate the document and review warnings. The API currently supports App, Config, Route, Postgres, MariaDB, Valkey, Disk, and MSSQL resource documents. Some CLI subcommands expose a narrower set of resource-kind arguments; use `brainpod describe resource --json` for the contract supported by the installed CLI.
+Use `--dry-run` before creation to validate the document and review warnings. The API currently supports App, Config, Route, Postgres, MariaDB, Valkey, Disk, Bucket, and MSSQL resource documents. Some CLI subcommands expose a narrower set of resource-kind arguments; use `brainpod describe resource --json` for the contract supported by the installed CLI.
 
 `deploy --wait` waits until every resource reports healthy. The default timeout is 90 seconds; override it with `--timeout <seconds>`.
+
+## Manage objects with the S3 gateway
+
+CLI v0.0.7 and later includes `s3 ls`, `cp`, `mv`, `upload`, `download`, and `rm`. Buckets must already exist; these commands do not create or delete Bucket resources.
+
+```sh
+brainpod --pod my-pod s3 ls
+brainpod --pod my-pod s3 cp ./photo.png s3://uploads/photo.png
+brainpod --pod my-pod s3 cp s3://uploads/photo.png ./downloaded.png
+```
+
+The normal API key needs explicit `s3:list`, `s3:read`, or `s3:write` permissions on the selected pod. Existing keys are not expanded automatically. Write permission includes replacement and deletion.
+
+Copies, moves, and file-based uploads are limited to 25 MiB. Remote destinations overwrite existing keys; local destinations must not already exist. Larger transfers use explicit streaming modes. See [Buckets](resources/buckets.md#use-the-cli) for exact-key behavior, endpoint configuration, and streaming safeguards.
 
 ## Inspect revisions
 

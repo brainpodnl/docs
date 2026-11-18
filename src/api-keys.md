@@ -46,8 +46,13 @@ Typical actions used in API key policies include:
 - `revisions:read`
 - `resources:read`
 - `database:connect`
+- `s3:list`
+- `s3:read`
+- `s3:write`
 
 Choose only what the integration needs. Database tunnels require `database:connect`; resolving a database by name and retrieving connection details also requires `resources:read`.
+
+The [S3 gateway](resources/buckets.md#use-the-s3-gateway) requires explicit `s3:list`, `s3:read`, or `s3:write` grants on the target pod. `s3:write` includes replacement and deletion, not only upload. These permissions apply to the pod, not an individual bucket or object prefix. Gateway requests use a Bearer API key; Apps use separate bucket-scoped provider credentials for native S3 access.
 
 ## Pod Resource Scoping
 

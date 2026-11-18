@@ -22,13 +22,14 @@ A resource is a declarative definition of infrastructure managed by Brainpod. Th
 - [Apps](resources/apps.md) for containerized workloads
 - [Routes](resources/routes.md) for HTTP routing and TLS termination
 - [Disks](resources/disks.md) for persistent storage
+- [Buckets](resources/buckets.md) for private S3-compatible object storage
 - [Config](resources/config.md) for text-based configuration files
 - [PostgresDB](resources/postgres.md) for PostgreSQL
 - [MariaDB](resources/mariadb.md) for MariaDB
 - [Valkey](resources/valkey.md) for key-value storage
 - [SQL Server](resources/mssql.md) for Microsoft SQL Server Express
 
-Resources can reference one another. A Route targets an App, an App can mount a Disk or Config, and an App can reference variables exported by a database or another App with internal ports. See [Private networking](resources/apps.md#private-networking) for pod-scoped hostnames and App-to-App connections.
+Resources can reference one another. A Route targets an App, an App can mount a Disk or Config, and an App can reference variables exported by a database, Bucket, or another App with internal ports. See [Private networking](resources/apps.md#private-networking) for pod-scoped hostnames and App-to-App connections.
 
 ## Mutable head and revisions
 
