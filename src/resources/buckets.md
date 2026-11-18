@@ -9,8 +9,6 @@ metas:
 
 A Bucket provides private S3-compatible object storage for one pod. Use it for uploads, generated files, exports, backups, or other data that does not need a mounted filesystem.
 
-Bucket support must be enabled for your account. When it is unavailable, the Bucket resource and **Storage** navigation are hidden.
-
 ## Create a Bucket
 
 In the console:
