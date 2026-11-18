@@ -90,6 +90,12 @@ The namespace is currently fixed to `default`.
 
 Resource schemas include `x-brainpod-variables`, which describes references such as `${db.uri}` that can be used in App environment variables. Secret variables are identified as secret and their values are not returned by the variables API.
 
+## Object storage gateway
+
+Bucket creation and removal use the resource endpoints above. Object operations use the separate [S3 gateway](resources/buckets.md#use-the-s3-gateway) at `https://<pod-name>.s3.brainpod.io`, with path-style logical bucket names and Bearer API keys. Its S3-style XML operations are not part of this REST OpenAPI contract, and it does not accept native AWS Signature Version 4 authentication.
+
+Apps that need a native S3 SDK use the Bucket's [direct provider exports](resources/buckets.md#connect-an-app) instead.
+
 ## Errors
 
 API errors include:
