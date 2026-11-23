@@ -81,6 +81,7 @@ The namespace is currently fixed to `default`.
 - App
 - Config
 - Route
+- DnsZone
 - Postgres
 - MariaDB
 - Valkey
