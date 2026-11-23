@@ -2,8 +2,8 @@
 order: 8
 hide_menu: false
 metas:
-  description: "Configure Brainpod Bucket storage for PostgreSQL and MariaDB backups, create backups on demand, and restore from backup history."
-  keywords: ["Brainpod database backups", "PostgreSQL backup", "MariaDB backup", "restore database", "Bucket storage"]
+  description: "Configure Brainpod Bucket storage for PostgreSQL and MariaDB backups, run backups manually or on a schedule, and restore from backup history."
+  keywords: ["Brainpod database backups", "PostgreSQL backup", "MariaDB backup", "scheduled backup", "restore database", "Bucket storage"]
 ---
 # Database backups
 
@@ -25,6 +25,19 @@ The selected Bucket must be part of the deployed revision. When the tab reports 
 When backup storage and the deployed database are ready, select **Back up now**. Only one database backup or restore operation can run at a time for that resource. Follow the operation in **Backup history**.
 
 If the console asks you to redeploy the database to enable backups and restores, deploy a fresh revision before retrying.
+
+## Schedule backups
+
+Configure a recurring backup after the selected storage reports ready:
+
+1. Under **Backup schedule**, select **Set schedule**.
+2. Choose an interval or a daily, weekday, weekly, or monthly time.
+3. Apply the schedule.
+4. Review and deploy the draft to activate it.
+
+Database backup schedules use the `Europe/Amsterdam` timezone and follow daylight-saving changes. The shortest supported interval is five minutes. A monthly schedule skips months that do not contain the selected day.
+
+Changing or removing a schedule updates the draft. The deployed schedule continues to run until you deploy that change. Scheduled backups also require the deployed Bucket to remain ready.
 
 ## Restore a backup
 
