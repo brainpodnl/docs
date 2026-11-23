@@ -2,68 +2,72 @@
 order: 2
 hide_menu: false
 metas:
-  description: "Complete Brainpod onboarding: billing details, payment method, and creating your first pod. Understand what is required before dashboard access."
-  keywords: ["Brainpod onboarding", "billing", "payment method", "first pod", "dashboard access"]
+  description: "Connect GitHub, let Brainpod analyze and build a repository, review its generated pod, and complete repository onboarding."
+  keywords: ["Brainpod onboarding", "GitHub repository", "agent onboarding", "GitHub Actions", "first pod", "billing"]
 ---
 # Onboarding
 
-New Brainpod accounts go through a short onboarding flow before full dashboard access is enabled.
+Repository onboarding turns an existing GitHub repository into a Brainpod pod. The Brainpod agent plans the deployment, writes a draft revision, builds images through the repository's GitHub Actions, and checks that the deployed applications start.
 
-The flow makes sure your account is ready for usage-based billing and that your first project space (pod) is set up.
+## Connect GitHub and choose a repository
 
-## What Onboarding Includes
+1. Select **Continue with GitHub**.
+2. Install or authorize the Brainpod GitHub App for the repository you want to deploy.
+3. Choose a repository and branch.
+4. Select **Analyze repository**.
 
-Onboarding has four steps:
+Brainpod creates an onboarding pod and pins the session to the selected commit. Use the link for granting repository access when the repository does not appear. You can also start from a template or create an empty pod.
 
-1. **Welcome**
-2. **Billing details**
-3. **Payment method**
-4. **Create your first pod**
+## Follow the plan and builds
 
-After these steps are completed, Brainpod marks your account as onboarded and sends you to the dashboard.
+The agent card shows the session steps from the start. Each step reports whether it is waiting, running, completed, or failed, how long it has run, and what it produced. Open the conversation when you need the agent's detailed activity.
 
-## Why This Is Required
+Planned Apps appear on the canvas as soon as the agent identifies the services. Other resources replace or join them while the agent writes the draft. Select a resource to review the source-file evidence behind it.
 
-Before onboarding is complete, Brainpod redirects signed-in users to the onboarding page.
+The agent commits the build configuration to an onboarding branch named `brainpod/onboarding-<pod>`. The first images build in the repository's GitHub Actions. Each service shows whether its workflow started and the current Build phase; select the Build to inspect its log.
 
-This ensures:
-- billing information is available,
-- a payment method is active,
-- and at least one pod exists for your workloads.
+If GitHub Actions cannot start because the repository owner reached an Actions minutes or spending limit, follow the billing link in the failure card and select **Try again** after resolving it.
 
-## Payment Method States
+## Review decisions and required values
 
-During onboarding, payment setup can show different states:
+The agent pauses when it needs a decision or sensitive value:
 
-- **Active**: You can continue to the next step.
-- **Pending**: Verification is still being processed. The page updates automatically.
-- **Failed**: Verification did not complete. Retry adding a payment method.
+1. Open the affected resource and review the linked source evidence.
+2. Enter each required value. Brainpod stores sensitive values as Secret resources in the draft.
+3. Use **Open settings** to adjust an individual resource.
+4. Add corrections or a broader request in the reply field.
+5. Review the resulting resources and image builds.
 
-## Creating Your First Pod
+A reply starts a follow-up run against the same draft. When the agent has no remaining questions or required values, it deploys the exact draft as its final step. When user review is still required, select **Review and deploy** to deploy the revision you reviewed.
 
-In the final step, you create your first pod, optionally from a blueprint.
+The deployment card follows resource readiness. If an App fails to start and the agent can correct its plan, onboarding returns to the active step, rebuilds the affected service, and deploys another revision.
 
-Your pod name is important because it is used in:
-- pod URLs,
-- registry image paths (`registry.brainpod.io/<podname>/...`),
-- and API key policies that target pod resources.
+Select **Skip setup** to keep the draft and leave onboarding without deploying. **Start over** deletes the onboarding pod only while no deployment has ever been requested.
 
-After creating your first pod, Brainpod shows a quick reminder with links to registry documentation.
+## Continuous deployments
 
-## API Keys During Onboarding and After
+During onboarding, Brainpod adds `steiger.yml` and the deploy workflow to the onboarding branch and opens a draft pull request where GitHub permits it. The workflow authenticates to Brainpod with GitHub OIDC, so it does not add an API key to the repository.
 
-API keys are managed per user and can be limited with policy statements.
+After the pod becomes healthy, Brainpod makes that pull request ready for review, or opens it when GitHub did not allow a draft. Review and merge it when you want continuous deployments. You can skip this step and continue to the pod dashboard.
 
-When creating an API key, you select:
-- one or more actions (for example registry or build actions),
-- one or more pod resources the key can access,
-- and whether statements allow or deny those actions.
+## Trial limits and billing
 
-See [API Keys](api-keys.md) for policy details, [Container Registry](registry.md) for push/pull usage, and [Builds](builds.md) for CI/CD usage.
+Trial accounts have a smaller agent budget per onboarding run. When the analysis reaches that limit, select **Add billing details**, complete the payment method flow in the canvas, and then retry the analysis. A retried run uses the limits of the account's current tier.
 
-## Next Steps
+Settings, notifications, and billing pages remain available while onboarding is incomplete. Other dashboard pages continue to redirect to onboarding until the first deployment succeeds or you explicitly skip setup.
 
-- [Getting Started](getting-started.md): Deploy your first app and route
-- [API Keys](api-keys.md): Manage policy-based user keys
-- [Container Registry](registry.md): Push your own images
-- [Builds](builds.md): Automate builds from GitHub
+## Recovery
+
+- **Repository missing**: grant the GitHub App access to more repositories and reload the repository picker.
+- **Analysis failed**: open the agent activity, fix the reported repository issue, and select **Try again**.
+- **Trial limit reached**: add billing details or choose a template instead.
+- **GitHub Actions did not run**: resolve the reported Actions limit or repository setting, then retry the workflow.
+- **Build failed**: inspect the Build attached to the affected service. The agent may revise its plan when the failure identifies an actionable cause.
+- **Deployment failed**: review resource Events and the reported startup reason. Apply corrections before retrying.
+
+## Next steps
+
+- [Brainpod concepts](brainpod.md): Understand drafts, revisions, and deployment
+- [Builds](builds.md): Review repository builds
+- [Resources](resources.md): Inspect the generated resource graph
+- [Blueprints](blueprints.md): Start from a predefined stack
