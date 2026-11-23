@@ -7,7 +7,7 @@ metas:
 ---
 # Secret resources
 
-A Secret resource stores the identity of a password, token, or key in a pod revision. Its value remains write-only and outside the resource document. Every revision pins the exact value version it uses, so deploying, discarding, reverting, and rolling back secrets follows the same revision workflow as other resources.
+A Secret resource stores the identity of a password, token, or key in a pod revision. Its value remains write-only and outside the resource document. Every revision pins the exact value version it uses, so deploying, discarding, reverting, and rolling back secrets follows the same revision workflow as other resources. The App environment workflow is available for existing Apps as well as newly created Apps.
 
 ## Store an App variable as a secret
 
