@@ -2,50 +2,65 @@
 order: 4
 hide_menu: false
 metas:
-  description: "Add custom domains to your Brainpod routes. Configure DNS, get automatic TLS certificates, and serve your apps from any domain you own."
-  keywords: ["Brainpod custom domains", "DNS configuration", "TLS certificate", "HTTPS", "CNAME", "custom hostname"]
+  description: "Connect custom domains to Brainpod Routes with an external CNAME or Brainpod-hosted DNS, including root domains and automatic TLS."
+  keywords: ["Brainpod custom domains", "Brainpod DNS", "DNS configuration", "TLS certificate", "HTTPS", "CNAME", "apex domain"]
 ---
 # Custom domains
 
-Every route on Brainpod comes with a unique hostname under `*.route.brainpod.io`. While these work great for testing and internal services, you'll likely want to use your own domain for production applications.
+Every Brainpod Route receives a unique hostname under `*.route.brainpod.io`. Add a custom domain when you want to serve the same Route through a domain you own.
 
-Custom domains let you serve your apps from any domain you own. When you add a custom domain to a route, we provision a TLS certificate and configure routing for that domain. Point your DNS to Brainpod, and we handle the rest: automatic TLS certificates, traffic routing, and renewals.
+Brainpod provisions and renews TLS certificates for both generated hostnames and custom domains. The Domains page shows each domain's DNS, certificate, and deployed-Route state.
 
-## Adding a Custom Domain
+## Add a domain
 
-To add a custom domain to your route:
+1. Open **Domains** in the pod.
+2. Select **Add domain**.
+3. Enter the domain and select the Route that should serve it.
+4. Choose **External DNS** or **Brainpod DNS**.
+5. Review the connection details and add the change to the draft.
+6. Complete the DNS instructions shown on the Domains page.
+7. Deploy the draft.
 
-1. Create or edit your route in the dashboard
-2. Add your domain (e.g., `api.example.com` or `www.example.com`) to the route configuration
-3. Deploy the route changes
-4. Navigate to the Domains page in your dashboard
-5. Find your domain and copy the DNS target (CNAME value) provided
-6. Go to your DNS provider's control panel
-7. Add the appropriate DNS records pointing to the target (see DNS Configuration below)
-8. Return to the Domains page to monitor verification status
+DNS and certificate preparation can finish before the Route is deployed. Traffic starts after the DNS and TLS states are ready and a deployed Route contains the domain.
 
-The Domains page shows all your custom domains with their verification states and DNS records. Once your DNS records are updated and propagating, we automatically provision a TLS certificate. This typically takes a few minutes but can take longer depending on DNS propagation times.
+## Connect with external DNS
 
-## DNS Configuration
+External DNS keeps the zone at your current provider. Add the CNAME target shown on the Domains page:
 
-To configure DNS for your custom domain, create a CNAME record pointing to the DNS target provided in the Domains page. This is typically something like `your-route.route.brainpod.io`.
-
-```
-www.example.com.  CNAME  your-route.route.brainpod.io.
+```text
+www.example.com.  CNAME  generated-host.route.brainpod.io.
 ```
 
-CNAME records automatically follow any infrastructure changes on our side, so you won't need to update them if our routing changes.
+Use only the hostname as the target, without `https://` or a path. Remove conflicting A, AAAA, CNAME, forwarding, or redirect records at that exact name. Keep unrelated records, especially mail and verification records.
 
-## Multiple Custom Domains
+Some providers proxy CNAME traffic by default. Disable that proxy while Brainpod verifies DNS and provisions HTTPS.
 
-A single route can have multiple custom domains. This is useful when you want several domains pointing to the same application-for example, `www.example.com` and `app.example.com`, or multiple brand domains.
+A standard CNAME cannot be placed at a zone apex such as `example.com`. Use a provider that supports CNAME flattening or an equivalent external-target ALIAS feature, use a subdomain such as `www`, or choose Brainpod DNS.
 
-To add multiple domains, simply add each domain when creating or editing your route configuration. After deploying, configure DNS records for each domain separately in your DNS provider.
+## Connect with Brainpod DNS
 
-Each domain gets its own TLS certificate and verification status on the Domains page. All domains on a route use the same routing rules and point to the same apps.
+Brainpod DNS hosts the complete zone and can connect both root domains and subdomains. The add-domain flow scans common existing records, lets you review them, and shows the pod-specific nameservers to configure.
 
-## Next Steps
+Because Brainpod becomes authoritative for the zone, include every record that must keep working after the delegation changes. Disable DNSSEC and let the DS record expire before switching nameservers.
 
-- [Routes](resources/routes.md): Learn about route configuration and routing rules
-- [Resources](resources.md): Learn about apps and routes
-- [Getting Started](getting-started.md): Deploy your first application
+See [DNS zones](resources/dns-zones.md) for the complete migration, record-management, DNSSEC, and removal workflow.
+
+## Multiple domains
+
+A Route can contain multiple custom domains. Add and connect each domain from the Domains page. All domains use the same Route rules, including any per-rule Brainpod login requirement.
+
+Each domain receives its own status and TLS certificate. A domain may use external DNS while another domain on the same Route uses Brainpod DNS.
+
+## Troubleshooting
+
+- **Waiting for DNS**: confirm the exact CNAME target or both Brainpod nameservers at the authoritative provider.
+- **DNSSEC warning**: remove the parent DS record and wait for its TTL before switching to Brainpod DNS.
+- **Missing mail or service records**: add the records to the DnsZone and deploy before changing nameservers.
+- **HTTPS ready, traffic waiting**: deploy the draft that contains the domain and Route.
+- **External DNS at the root fails**: use provider flattening, a supported ALIAS record, a subdomain, or Brainpod DNS.
+
+## Next steps
+
+- [DNS zones](resources/dns-zones.md): Host and manage authoritative DNS
+- [Routes](resources/routes.md): Configure routing rules and access
+- [Brainpod resources](resources.md): Review revisions and deployment
