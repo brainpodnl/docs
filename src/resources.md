@@ -11,7 +11,8 @@ Resources are the building blocks of your infrastructure on Brainpod. They let y
 
 ## Overview
 
-- **[Apps](resources/apps.md)**: Your containerized applications
+- **[Apps](resources/apps.md)**: Your long-running containerized applications
+- **[CronJobs](resources/cronjobs.md)**: Scheduled container executions with reusable Triggers
 - **[Routes](resources/routes.md)**: HTTP/HTTPS routing to your apps
 - **[DNS zones](resources/dns-zones.md)**: Authoritative DNS hosted by Brainpod
 - **[Disks](resources/disks.md)**: Persistent block storage
@@ -22,7 +23,9 @@ Resources are the building blocks of your infrastructure on Brainpod. They let y
 - **[Valkey](resources/valkey.md)**: Managed Valkey key-value store
 - **[SQL Server](resources/mssql.md)**: Managed Microsoft SQL Server Express databases
 
-**Apps** run container images with the environment, compute size, replicas, readiness checks, runtime identity, and mounts you specify. Brainpod schedules instances, reports health, and restarts failed containers.
+**Apps** run long-lived container images with the environment, compute size, replicas, readiness checks, runtime identity, and mounts you specify. Brainpod schedules instances, reports health, and restarts failed containers.
+
+**CronJobs** run container work to completion on a schedule. Reusable Trigger resources hold the image, command, environment, Config mounts, instance size, and runtime identity.
 
 **Routes** expose apps over HTTP and HTTPS. They terminate TLS, evaluate path and access rules, and forward requests to the selected App and port.
 
@@ -62,7 +65,8 @@ Routes can point to multiple apps using different path prefixes. Apps can be tar
 
 ## Next Steps
 
-- [Apps](resources/apps.md): Deploy containerized applications
+- [Apps](resources/apps.md): Deploy long-running applications
+- [CronJobs](resources/cronjobs.md): Schedule container work
 - [Routes](resources/routes.md): Expose apps on the internet
 - [DNS zones](resources/dns-zones.md): Host authoritative DNS
 - [Buckets](resources/buckets.md): Store and manage objects
