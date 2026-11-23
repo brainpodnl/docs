@@ -72,5 +72,4 @@ The referenced AppTemplate also uses `pod.brainpod.io/v1alpha2`. Create or repla
 
 - [Events and logs](../events.md): Inspect execution output
 - [Apps](apps.md): Configure long-running containers
-- [Secret resources](../secrets.md): Reference sensitive environment values
 - [Brainpod resources](../resources.md): Review revision behavior
