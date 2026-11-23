@@ -13,6 +13,7 @@ Resources are the building blocks of your infrastructure on Brainpod. They let y
 
 - **[Apps](resources/apps.md)**: Your containerized applications
 - **[Routes](resources/routes.md)**: HTTP/HTTPS routing to your apps
+- **[DNS zones](resources/dns-zones.md)**: Authoritative DNS hosted by Brainpod
 - **[Disks](resources/disks.md)**: Persistent block storage
 - **[Buckets](resources/buckets.md)**: Private S3-compatible object storage
 - **[Config](resources/config.md)**: Text-based configuration files
@@ -23,7 +24,9 @@ Resources are the building blocks of your infrastructure on Brainpod. They let y
 
 **Apps** run container images with the environment, compute size, replicas, readiness checks, runtime identity, and mounts you specify. Brainpod schedules instances, reports health, and restarts failed containers.
 
-**Routes** expose apps over HTTP and HTTPS. They terminate TLS, evaluate path rules, and forward requests to the selected app and port.
+**Routes** expose apps over HTTP and HTTPS. They terminate TLS, evaluate path and access rules, and forward requests to the selected App and port.
+
+**DNS zones** host authoritative DNS for a domain and connect Route domains, including root domains, through pod-specific nameserver delegation.
 
 **Disks** give your apps persistent storage. Without a disk, data written inside an app is lost when it restarts. Mount a disk into an app and the data survives restarts, redeployments, and revisions. Databases like PostgresDB, MariaDB, and Valkey all require a disk to store their data.
 
@@ -61,6 +64,7 @@ Routes can point to multiple apps using different path prefixes. Apps can be tar
 
 - [Apps](resources/apps.md): Deploy containerized applications
 - [Routes](resources/routes.md): Expose apps on the internet
+- [DNS zones](resources/dns-zones.md): Host authoritative DNS
 - [Buckets](resources/buckets.md): Store and manage objects
 - [Container Registry](registry.md): Push private images
 - [Getting Started](getting-started.md): Deploy your first app and route
