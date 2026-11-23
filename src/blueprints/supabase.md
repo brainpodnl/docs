@@ -15,7 +15,7 @@ The blueprint creates:
 
 - one PostgresDB 16 resource with a persistent Disk;
 - one Bucket for Supabase object storage;
-- one stateless App running the Supabase `2026.11.05` bundle for Auth, REST, Storage, Realtime, and Edge Functions;
+- one stateless App running the Supabase `2026.11.05-r1` bundle for Auth, REST, Storage, Realtime, and Edge Functions;
 - one Studio App running the same bundle with a 5 GB Disk for saved snippets;
 - one Route for the API paths and Studio.
 
@@ -33,6 +33,18 @@ Studio has no independent login and connects with elevated database access. Brai
 6. Open the generated Route. Sign in to Brainpod when opening Studio.
 
 The Supabase blueprint may be unavailable until the account has the Supabase blueprint, general blueprint, and Bucket features enabled.
+
+## Update an existing installation
+
+Blueprint changes do not update resources that are already installed. Supabase installations using the `2026.11.05` image can fail to start because the non-root runtime cannot read its helper files.
+
+Edit both the API App and Studio App to use:
+
+```text
+registry.brainpod.io/pub/supabase:2026.11.05-r1
+```
+
+Review the two App changes and deploy a new pod revision. Do not update only one App; the API and Studio must use the same bundle revision.
 
 ## Generated configuration
 
