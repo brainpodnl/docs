@@ -2,12 +2,12 @@
 order: 2
 hide_menu: false
 metas:
-  description: "Connect GitHub, let the Brainpod agent analyze a repository, review the generated pod draft, and complete your first deployment."
-  keywords: ["Brainpod onboarding", "GitHub repository", "agent onboarding", "first pod", "billing"]
+  description: "Connect GitHub, let Brainpod analyze and build a repository, review its generated pod, and complete repository onboarding."
+  keywords: ["Brainpod onboarding", "GitHub repository", "agent onboarding", "GitHub Actions", "first pod", "billing"]
 ---
 # Onboarding
 
-Repository onboarding turns an existing GitHub repository into a reviewable Brainpod pod. The Brainpod agent reads the selected commit, proposes resources on the pod canvas, builds the application images, and leaves the first deployment under your control.
+Repository onboarding turns an existing GitHub repository into a Brainpod pod. The Brainpod agent plans the deployment, writes a draft revision, builds images through the repository's GitHub Actions, and checks that the deployed applications start.
 
 ## Connect GitHub and choose a repository
 
@@ -16,33 +16,39 @@ Repository onboarding turns an existing GitHub repository into a reviewable Brai
 3. Choose a repository and branch.
 4. Select **Analyze repository**.
 
-Brainpod creates an onboarding pod and starts an agent run pinned to the selected commit. Use the link for granting repository access when the repository does not appear. You can also start from a template or create an empty pod.
+Brainpod creates an onboarding pod and pins the session to the selected commit. Use the link for granting repository access when the repository does not appear. You can also start from a template or create an empty pod.
 
-## Follow the analysis
+## Follow the plan and builds
 
-The agent card shows each step as waiting, running, completed, or failed. Before the conversation begins, it reports whether the run is waiting for a runner, preparing its workspace, or checking out the repository.
+The agent card shows the session steps from the start. Each step reports whether it is waiting, running, completed, or failed, how long it has run, and what it produced. Open the conversation when you need the agent's detailed activity.
 
-The summary shows elapsed time, tool calls, and images that are still building. Select **All activity** to open the read-only conversation, including commands and their output. After a failed run, the same history remains available as **What the agent did**.
+Planned Apps appear on the canvas as soon as the agent identifies the services. Other resources replace or join them while the agent writes the draft. Select a resource to review the source-file evidence behind it.
 
-Resources appear on the canvas while the agent works. The run may create disks, databases, configuration, builds, apps, and routes as it discovers the repository. A retry continues from the partial draft where possible.
+The agent commits the build configuration to an onboarding branch named `brainpod/onboarding-<pod>`. The first images build in the repository's GitHub Actions. Each service shows whether its workflow started and the current Build phase; select the Build to inspect its log.
 
-## Review the proposed pod
+If GitHub Actions cannot start because the repository owner reached an Actions minutes or spending limit, follow the billing link in the failure card and select **Try again** after resolving it.
 
-Before deployment:
+## Review decisions and required values
 
-1. Open each proposed resource and review the agent's file and line evidence.
-2. Supply every required value requested by the agent.
-3. Use **Open settings** to change a resource directly.
-4. Enter corrections or a follow-up request when the proposal needs broader changes.
-5. Review the complete draft and its image builds.
+The agent pauses when it needs a decision or sensitive value:
 
-The onboarding agent does not deploy the initial proposal by itself. **Review and deploy** deploys the exact draft you reviewed. If a build or deployment fails, fix the cause and retry from the canvas.
+1. Open the affected resource and review the linked source evidence.
+2. Enter each required value. Brainpod stores sensitive values as Secret resources in the draft.
+3. Use **Open settings** to adjust an individual resource.
+4. Add corrections or a broader request in the reply field.
+5. Review the resulting resources and image builds.
+
+A reply starts a follow-up run against the same draft. When the agent has no remaining questions or required values, it deploys the exact draft as its final step. When user review is still required, select **Review and deploy** to deploy the revision you reviewed.
+
+The deployment card follows resource readiness. If an App fails to start and the agent can correct its plan, onboarding returns to the active step, rebuilds the affected service, and deploys another revision.
 
 Select **Skip setup** to keep the draft and leave onboarding without deploying. **Start over** deletes the onboarding pod only while no deployment has ever been requested.
 
 ## Continuous deployments
 
-After the first successful deployment, the agent can propose a pull request containing continuous-deployment files. Review those files before asking Brainpod to open the pull request. This step is optional; finish onboarding to continue to the pod dashboard.
+During onboarding, Brainpod adds `steiger.yml` and the deploy workflow to the onboarding branch and opens a draft pull request where GitHub permits it. The workflow authenticates to Brainpod with GitHub OIDC, so it does not add an API key to the repository.
+
+After the pod becomes healthy, Brainpod makes that pull request ready for review, or opens it when GitHub did not allow a draft. Review and merge it when you want continuous deployments. You can skip this step and continue to the pod dashboard.
 
 ## Trial limits and billing
 
@@ -53,14 +59,16 @@ Settings, notifications, and billing pages remain available while onboarding is 
 ## Recovery
 
 - **Repository missing**: grant the GitHub App access to more repositories and reload the repository picker.
-- **Analysis failed**: open **What the agent did**, fix the reported repository issue, and select **Try again**.
+- **Analysis failed**: open the agent activity, fix the reported repository issue, and select **Try again**.
 - **Trial limit reached**: add billing details or choose a template instead.
-- **Build failed**: inspect the build attached to the affected App, update the draft or repository, and retry.
-- **Deployment failed**: review resource events, correct the draft, and deploy again.
+- **GitHub Actions did not run**: resolve the reported Actions limit or repository setting, then retry the workflow.
+- **Build failed**: inspect the Build attached to the affected service. The agent may revise its plan when the failure identifies an actionable cause.
+- **Deployment failed**: review resource Events and the reported startup reason. Apply corrections before retrying.
 
 ## Next steps
 
 - [Brainpod concepts](brainpod.md): Understand drafts, revisions, and deployment
 - [Builds](builds.md): Review repository builds
+- [Secret resources](secrets.md): Understand required sensitive values
 - [Resources](resources.md): Inspect the generated resource graph
 - [Blueprints](blueprints.md): Start from a predefined stack
