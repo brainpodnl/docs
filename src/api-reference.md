@@ -79,6 +79,8 @@ The namespace is currently fixed to `default`.
 `ResourceInput` in the OpenAPI components contains the supported resource documents. The live contract currently includes:
 
 - App
+- AppTemplate
+- CronJob
 - Config
 - Route
 - DnsZone
@@ -108,13 +110,18 @@ API errors include:
 
 Use the HTTP status for the broad error class and the stable code for specific recovery behavior. Include the request ID when contacting support, but do not include API keys or secret values.
 
-## Streaming events
+## Event history and streaming
 
-`GET /v1/pods/{pod}/events/watch` uses server-sent events. Clients should process events as they arrive, retain the latest event ID, and reconnect after the server closes a stream. The [Brainpod CLI](cli.md) implements this reconnection behavior.
+`GET /v1/pods/{pod}/events` lists events for one required Resource URN. Filter by event kind, text, application level, and a fixed range from five minutes to seven days. Continue pagination with the opaque cursor returned in the `x-next-cursor` and `Link` headers without changing the filters.
+
+`GET /v1/pods/{pod}/events/watch` uses server-sent events. Retain the latest event ID and reconnect with the same filters. Streams are bounded and best effort; start a new history query after a cursor-expiry, incompatibility, or gap response.
+
+See [Events and logs](events.md) for console filtering, retention, CronJob replica links, and recovery behavior. The [Brainpod CLI](cli.md) implements event-stream reconnection.
 
 ## Next steps
 
 - [API keys](api-keys.md): Define least-privilege policies
 - [Brainpod CLI](cli.md): Use a version-matched command contract
 - [Resources](resources.md): Understand available resource types
+- [Events and logs](events.md): Search and stream operational output
 - [Database tunnels](database-tunnels.md): Connect local database tools
