@@ -69,6 +69,5 @@ Settings, notifications, and billing pages remain available while onboarding is 
 
 - [Brainpod concepts](brainpod.md): Understand drafts, revisions, and deployment
 - [Builds](builds.md): Review repository builds
-- [Secret resources](secrets.md): Understand required sensitive values
 - [Resources](resources.md): Inspect the generated resource graph
 - [Blueprints](blueprints.md): Start from a predefined stack
