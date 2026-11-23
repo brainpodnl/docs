@@ -15,7 +15,7 @@ The blueprint creates the following resources in your pod:
 
 - **2 Disks**: one for the database, one for your WordPress files and uploads
 - **1 MariaDB**: a managed MySQL-compatible database that WordPress connects to automatically
-- **1 App**: WordPress 7.0.2 running on PHP 8.2 with Apache
+- **1 App**: WordPress 7.1.4 running on PHP 8.2 with Apache
 - **1 Route**: a public hostname under `*.route.brainpod.io` with automatic TLS
 
 The database connection is wired up automatically. You do not need to configure `WORDPRESS_DB_HOST`, `WORDPRESS_DB_USER`, `WORDPRESS_DB_PASSWORD`, or `WORDPRESS_DB_NAME` yourself.

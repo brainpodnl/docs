@@ -14,7 +14,7 @@ The PocketBase blueprint deploys a self-hosted PocketBase backend on Brainpod. P
 The blueprint creates the following resources in your pod:
 
 - **1 Disk**: persistent storage for your PocketBase data at `/pb_data`
-- **1 App**: PocketBase v0.39.8 running on port 8090
+- **1 App**: PocketBase v0.40.6 running on port 8090
 - **1 Route**: a public hostname under `*.route.brainpod.io` with automatic TLS
 
 ## Deploying the Blueprint
